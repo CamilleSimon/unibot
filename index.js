@@ -22,8 +22,4 @@ client.on('ready', () => {
     // or if on master, client.user.setActivity('game');
 });
 
-<<<<<<< HEAD
 client.login(jsonConfig.token);
-=======
-client.login('token');
->>>>>>> 0bf237dbe71a513bb1638553be0d5e3f28858d81

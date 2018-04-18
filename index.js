@@ -17,8 +17,13 @@ client.registry
 
 client.on('ready', () => {
     console.log('Logged in!');
-    client.user.setGame("FINAL FANTASY XIV - REALM REBORN, Maybe");
+    //I guess this follow line generate an error :
+    //client.user.setGame("FINAL FANTASY XIV - REALM REBORN, Maybe");
     // or if on master, client.user.setActivity('game');
 });
 
+<<<<<<< HEAD
 client.login(jsonConfig.token);
+=======
+client.login('token');
+>>>>>>> 0bf237dbe71a513bb1638553be0d5e3f28858d81

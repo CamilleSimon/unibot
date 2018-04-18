@@ -2,7 +2,7 @@ const { Command } = require('discord.js-commando');
 const util = require('./util');
 var MongoClient = require('mongodb').MongoClient;
 
-var url = 'mongodb://localhost:27017/unibot';
+var url = 'mongodb://jsonConfig.mongodb:27017/unibot';
 
 //Show today and the next six days of a specific player
 function showAllDaysSchedule(channel, name){

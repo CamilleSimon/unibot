@@ -2,7 +2,8 @@ const commando = require('discord.js-commando');
 const path = require('path');
 const client = new commando.Client();
 var fs = require("fs");
-var token = fs.readFileSync("token.conf");
+var configs = fs.readFileSync("config.json");
+var jsonConfig = JSON.parse(configs);
 
 client.registry
     .registerDefaultTypes()
@@ -20,4 +21,4 @@ client.on('ready', () => {
     // or if on master, client.user.setActivity('game');
 });
 
-client.login('token');
+client.login(jsonConfig.token);

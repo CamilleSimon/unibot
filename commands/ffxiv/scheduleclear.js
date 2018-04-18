@@ -2,7 +2,10 @@ const { Command } = require('discord.js-commando');
 const fs = require("fs");
 const util = require('./util');
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/unibot';
+var fs = require("fs");
+var configs = fs.readFileSync("config.json");
+var jsonConfig = JSON.parse(configs);
+var url = 'mongodb:// ' + jsonConfig.mongodb + ':27017/unibot';
 
 /***************************************/
 /***************DEPRECATED**************/

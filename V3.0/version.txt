@@ -1,2 +1,0 @@
-Functionnal version centered on player.
-What we want to update : passing to a version centered on schedule per week

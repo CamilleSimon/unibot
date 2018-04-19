@@ -32,16 +32,20 @@ module.exports = class SayCommand extends Command {
                         return 'invalid game. Witch game do you play ? Valide games are : ```wow, ffxiv``';
                     } 
                 },{
+                    key: 'server',
+                    prompt: ', one which server do you play ?',
+                    type: 'string'
+                },{
                     key: 'name',
-                    prompt: 'What is the name of your character ?',
+                    prompt: ', what is the name of your character ?',
                     type: 'string'
                 }
             ]
         });
     }
 
-	run(msg, { game, name }){
-		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + name);
+	run(msg, { game, server, name }){
+		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + ", " + server + ", " + name);
         
 	}
 }

@@ -18,7 +18,7 @@ module.exports = class SayCommand extends Command {
             args: [
                 {
                     key: 'game',
-                    prompt: ' witch game do you play ? Valide games : ```wow, ffxiv``',
+                    prompt: ' witch game do you play ? Valide games: ```wow, ffxiv``` \n A quelle jeu jouez-vous ? Jeux valides : ```wow, ffxiv```',
                     type: 'string',
                     validate: game => {
                         if (game == "wow" || 
@@ -29,15 +29,15 @@ module.exports = class SayCommand extends Command {
                             game == "FFXIV"
                         ) 
                             return true;
-                        return 'invalid game. Witch game do you play ? Valide games are : ```wow, ffxiv``';
+                        return 'invalid game. Witch game do you play ? Valide games are : ```wow, ffxiv``` \n Jeu invalide. A quelle jeu jouez-vous ? Jeux valides : ```wow, ffxiv```';
                     } 
                 },{
                     key: 'server',
-                    prompt: ', one which server do you play ?',
+                    prompt: ', on which server do you play ? \n Sur quelle serveur jouez-vous ?',
                     type: 'string'
                 },{
                     key: 'name',
-                    prompt: ', what is the name of your character ?',
+                    prompt: ', what is the name of your character ? \n Quelle est le nom de ',
                     type: 'string'
                 }
             ]

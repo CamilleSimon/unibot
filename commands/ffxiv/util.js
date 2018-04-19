@@ -28,7 +28,7 @@ module.exports = {
 			return undefined;
 		var tabular = new Array();
 		//i for initial
-		var i = Number(text.substr(0,2))*2;
+		var i = Number(text.substring(0,2))*2;
 		var im = Number(text.substring(3,5));
 		//e for end
 		var e = Number(text.substring(6,8))*2;

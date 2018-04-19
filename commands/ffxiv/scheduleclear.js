@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
 const fs = require("fs");
-const util = require('./util');
+const util = require('../util');
 var MongoClient = require('mongodb').MongoClient;
 var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);

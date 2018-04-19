@@ -18,7 +18,7 @@ module.exports = class SayCommand extends Command {
             args: [
                 {
                     key: 'game',
-                    prompt: ' witch game do you play ? Valide games : ```wow```, ````ffxiv``',
+                    prompt: ' witch game do you play ? Valide games : ```wow, ffxiv``',
                     type: 'string',
                     validate: game => {
                         if (game == "wow" || 
@@ -29,7 +29,7 @@ module.exports = class SayCommand extends Command {
                             game == "FFXIV"
                         ) 
                             return true;
-                        return 'invalid game. Witch game do you play ? Valide games are : ```wow```, ````ffxiv``';
+                        return 'invalid game. Witch game do you play ? Valide games are : ```wow, ffxiv``';
                     } 
                 },{
                     key: 'name',

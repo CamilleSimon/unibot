@@ -10,6 +10,7 @@ client.registry
     .registerGroups([
         ['general', 'General'],
         ['ffxiv', 'FFXIV'],
+        ['player', 'Player']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands()

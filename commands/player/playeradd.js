@@ -34,8 +34,7 @@ module.exports = class SayCommand extends Command {
                 },{
                     key: 'name',
                     prompt: 'What is the name of your character ?',
-                    type: 'string',
-                    default: ''
+                    type: 'string'
                 }
             ]
         });

@@ -33,11 +33,11 @@ module.exports = class SayCommand extends Command {
                     } 
                 },{
                     key: 'server',
-                    prompt: ', on which server do you play ? \n Sur quelle serveur jouez-vous ?',
+                    prompt: ' on which server do you play ? \n Sur quelle serveur jouez-vous ?',
                     type: 'string'
                 },{
                     key: 'name',
-                    prompt: ', what is the name of your character ? \n Quelle est le nom de ',
+                    prompt: ' what is the name of your character ? \n Quelle est le nom de ',
                     type: 'string'
                 }
             ]
@@ -46,6 +46,7 @@ module.exports = class SayCommand extends Command {
 
 	run(msg, { game, server, name }){
 		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + ", " + server + ", " + name);
-        
+        if(game == "wow")
+            say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);
 	}
 }

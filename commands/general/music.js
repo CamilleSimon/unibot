@@ -12,6 +12,13 @@ function join (msg) {
     voiceChannel.join();
 }
 
+function leave (msg) {
+    var voiceChannel = msg.member.voiceChannel;
+    if (!voiceChannel || voiceChannel.type !== 'voice') 
+        return msg.reply('I couldn\'t connect to your voice channel...');
+    voiceChannel.leave();
+}
+
 function add (url, username, msg) {
 	if (url == '' || url === undefined) 
         return msg.channel.sendMessage(`You must add a YouTube video url, or id after ${tokens.prefix}add`);
@@ -136,6 +143,9 @@ module.exports = class ReplyCommand extends Command {
             }
             else if (commands == 'join' ){
                 join(msg)
+            }
+             else if (commands == 'leave' ){
+                leave(msg);
             }
             else if (commands == 'queue2' ){
                 console.log(queuee[msg.guild.name]);

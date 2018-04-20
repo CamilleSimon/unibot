@@ -75,7 +75,7 @@ function play2 (msg) {
                 } else if (m.content.startsWith(tokens.prefix + 'skip')){
                     msg.channel.sendMessage('skipped').then(() => {dispatcher.end();});
                 } else if (m.content.startsWith(tokens.prefix + 'stop')){
-                    msg.channel.sendMessage('stop').then(() => {dispatcher.end();};
+                    msg.channel.sendMessage('stop').then(() => {dispatcher.end();}
                     collector.stop(););
                 } else if (m.content.startsWith('volume+')){
                     if (Math.round(dispatcher.volume*50) >= 100) return msg.channel.sendMessage(`Volume: ${Math.round(dispatcher.volume*50)}%`);

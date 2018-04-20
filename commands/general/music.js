@@ -14,8 +14,6 @@ function join (msg) {
 
 function leave (msg) {
     var voiceChannel = msg.member.voiceChannel;
-    if (!voiceChannel || voiceChannel.type !== 'voice') 
-        return msg.reply('I couldn\'t connect to your voice channel...');
     voiceChannel.leave();
 }
 

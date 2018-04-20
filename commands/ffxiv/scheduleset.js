@@ -9,6 +9,7 @@ var url = 'mongodb:// ' + jsonConfig.mongodb + ':27017/unibot';
 
 //Update one specific day of the schedule
 function updateOneDaySchedule(channel, day, time, name){
+    concole.log("On updateOneDaySchedule")
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var query = {};
@@ -67,7 +68,6 @@ module.exports = class SayCommand extends Command {
                     prompt: ' what\'s the new time ? Please use HH:mm-HH:mm format, example : `20:00-23:00` If you want to said you\'re not vailable use the key word `unavailable`, if you\re available the entire day use the key word `available`',
                     type: 'string',
                     validate: time => {
-                        console.log(time);
                         var re = new RegExp('[0-2][0-9]:[0|3]0-[0-2][0-9]:[0|3]0', 'g');
                         if (time.match(re) || time == "available" || time == "unavailable"){
                             if(time != "available" && time != "unavailable"){
@@ -92,11 +92,11 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, { day, time, name }){
-		console.log("Command : scheduleset, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + day + ", " + time + ", " + name);
         var date = new Date(util.switchDayMonth(day));
         date.setYear(2018);
         if(!name)
             name = msg.author.lastMessage.member.nickname;
+            console.log("Command : scheduleset, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + day + ", " + time + ", " + name);
         updateOneDaySchedule(msg, date, time, name);
 	}
 }

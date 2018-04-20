@@ -12,7 +12,7 @@ function join (msg) {
     voiceChannel.join();
 }
 
-function leave (msg) {
+function stop (msg) {
     var voiceChannel = msg.member.voiceChannel;
     voiceChannel.leave();
 }
@@ -50,13 +50,11 @@ function help (msg) {
     msg.channel.sendMessage(tosend.join('\n'));
 }
 
-function play2 (msg) {
+function play2 (msg, song) {
     if (queuee[msg.guild.name] === undefined) return msg.channel.sendMessage(`Add some songs to the queue first with ${tokens.prefix}add`);
         if (!msg.guild.voiceConnection) join(msg);
         if (queuee[msg.guild.name].playing) return msg.channel.sendMessage('Already Playing');
         queuee[msg.guild.name].playing = true;
-
-        (function play(song) {
         	console.log(song + 'test');
         	var dispatcher;
             console.log(song);
@@ -97,7 +95,6 @@ function play2 (msg) {
                     play(queuee[msg.guild.name].songs.shift());
                 });
             });
-        })(queuee[msg.guild.name].songs.shift());
 }
 
 module.exports = class ReplyCommand extends Command {
@@ -141,8 +138,8 @@ module.exports = class ReplyCommand extends Command {
             else if (commands == 'join' ){
                 join(msg)
             }
-             else if (commands == 'leave' ){
-                leave(msg);
+             else if (commands == 'stop' ){
+                stop(msg);
             }
             else if (commands == 'queue2' ){
                 console.log(queuee[msg.guild.name]);

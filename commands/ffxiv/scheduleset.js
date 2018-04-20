@@ -47,21 +47,14 @@ module.exports = class SayCommand extends Command {
             args: [
                 {
                     key: 'day',
-                    prompt: ' witch day do you want to modify (Monday,Tuesday...)? You can also use the date `Day/Month` format, example : `05/01`.',
+                    prompt: ' witch day do you want to modify ? Valid date are `Day/Month` format, example : `05/01`.',
                     type: 'string',
                     validate: day => {
+                        var re = new RegExp('[0-1][0-9]/[0-1][0-9]', 'g');
                     	var date = new Date(util.switchDayMonth(day));
-                        if (day == "Monday" || 
-                            day == "Tuesday" || 
-                            day == "Wednesday" || 
-                            day == "Thursday" || 
-                            day == "Friday" ||
-                            day == "Saturday" ||
-                            day == "Sunday" ||
-                            day == "all" || date != 'Invalid Date'
-                        ) 
+                        if (day == "all" || date != 'Invalid Date') 
                             return true;
-                        return 'invalid day. Witch day do you want to modify (Monday,Tuesday...)? You can also use the date `Day/Month` format, example : `05/01`.';
+                        return 'invalid day. Witch day do you want to modify ? Valid date are `Day/Month` format, example : `05/01`.';
                     } 
                 },{
                     key: 'time',
@@ -83,9 +76,8 @@ module.exports = class SayCommand extends Command {
                     }
                 },{
                     key: 'name',
-                    prompt: '',
-                    type: 'string',
-                    default: ''
+                    prompt: ' what is the user id pf the player ? Example : @someone',
+                    type: 'string'
                 }
             ]
         });

@@ -74,9 +74,6 @@ function play2 (msg) {
                     msg.channel.sendMessage('resumed').then(() => {dispatcher.resume();});
                 } else if (m.content.startsWith(tokens.prefix + 'skip')){
                     msg.channel.sendMessage('skipped').then(() => {dispatcher.end();});
-                } else if (m.content.startsWith(tokens.prefix + 'stop')){
-                    msg.channel.sendMessage('stop').then(() => {dispatcher.end();}
-                    collector.stop(););
                 } else if (m.content.startsWith('volume+')){
                     if (Math.round(dispatcher.volume*50) >= 100) return msg.channel.sendMessage(`Volume: ${Math.round(dispatcher.volume*50)}%`);
                     dispatcher.setVolume(Math.min((dispatcher.volume*50 + (2*(m.content.split('+').length-1)))/50,2));

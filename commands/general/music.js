@@ -12,6 +12,13 @@ function join (msg) {
     voiceChannel.join();
 }
 
+function leave (msg) {
+    var voiceChannel = msg.member.voiceChannel;
+    if (!voiceChannel || voiceChannel.type !== 'voice') 
+        return msg.reply('I couldn\'t connect to your voice channel...');
+    voiceChannel.leave();
+}
+
 function add (url, username, msg) {
 	if (url == '' || url === undefined) 
         return msg.channel.sendMessage(`You must add a YouTube video url, or id after ${tokens.prefix}add`);
@@ -81,10 +88,12 @@ function play2 (msg) {
                     msg.channel.sendMessage(`time: ${Math.floor(dispatcher.time / 60000)}:${Math.floor((dispatcher.time % 60000)/1000) <10 ? '0'+Math.floor((dispatcher.time % 60000)/1000) : Math.floor((dispatcher.time % 60000)/1000)}`);
                 }
             });
+
             dispatcher.on('end', () => {
-                collector.stop();
-                play(queuee[msg.guild.name].songs.shift());
-            });
+                    collector.stop();
+                    queue[msg.guild.id].songs.shift();
+                    play(queuee[msg.guild.id].songs[0]);
+                });
             dispatcher.on('error', (err) => {
                 return msg.channel.sendMessage('error: ' + err).then(() => {
                     collector.stop();
@@ -134,6 +143,9 @@ module.exports = class ReplyCommand extends Command {
             }
             else if (commands == 'join' ){
                 join(msg)
+            }
+             else if (commands == 'leave' ){
+                leave(msg);
             }
             else if (commands == 'queue2' ){
                 console.log(queuee[msg.guild.name]);

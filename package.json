@@ -13,7 +13,7 @@
     "cheerio": "latest",
     "discord": "^0.8.2",
     "discord.js": "^11.2.1",
-    "discord.js-commando": "lastest",
+    "discord.js-commando": "latest",
     "erlpack": "github:hammerandchisel/erlpack",
     "express": "latest",
     "ffmpeg-binaries": "^3.2.2-3",

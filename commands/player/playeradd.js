@@ -6,6 +6,9 @@ var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 var url = 'mongodb:// ' + jsonConfig.mongodb + ':27017/unibot';
 
+
+//TODO 
+
 //Analyze chat message part
 module.exports = class SayCommand extends Command {
     constructor(client) {

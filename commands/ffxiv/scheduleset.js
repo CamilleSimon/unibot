@@ -93,10 +93,8 @@ module.exports = class SayCommand extends Command {
 
 	run(msg, { day, time, name }){
 		console.log("Command : scheduleset, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + day + ", " + time + ", " + name);
-        var name;
         var date = new Date(util.switchDayMonth(day));
-        date.setYear(2017);
-        var find = false;
+        date.setYear(2018);
         if(!name)
             name = msg.author.lastMessage.member.nickname;
         updateOneDaySchedule(msg, date, time, name);

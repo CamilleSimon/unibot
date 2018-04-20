@@ -79,6 +79,8 @@ function play2 (msg) {
                     msg.channel.sendMessage(`Volume: ${Math.round(dispatcher.volume*50)}%`);
                 } else if (m.content.startsWith(tokens.prefix + 'time')){
                     msg.channel.sendMessage(`time: ${Math.floor(dispatcher.time / 60000)}:${Math.floor((dispatcher.time % 60000)/1000) <10 ? '0'+Math.floor((dispatcher.time % 60000)/1000) : Math.floor((dispatcher.time % 60000)/1000)}`);
+                } else if (m.content.startsWith(tokens.prefix + 'stop')){
+                    msg.channel.sendMessage('Stopped').then(() => {collector.stop();});
                 }
             });
             dispatcher.on('end', () => {

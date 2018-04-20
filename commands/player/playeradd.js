@@ -13,12 +13,12 @@ module.exports = class SayCommand extends Command {
             name: 'playeradd',
             group: 'player',
             memberName: 'playeradd',
-            description: 'Add a player in the database',
+            description: 'Add a player in the database \n Ajoute un joueur à la base de données',
             examples: ['playeradd wow Shaykan', 'playeradd ffxiv Nyu Mori'],
             args: [
                 {
                     key: 'game',
-                    prompt: ' witch game do you play ? Valide games: ```wow, ffxiv``` \n A quelle jeu jouez-vous ? Jeux valides : ```wow, ffxiv```',
+                    prompt: ' witch game do you play ? \n A quelle jeu jouez-vous ? ```wow, ffxiv```',
                     type: 'string',
                     validate: game => {
                         if (game == "wow" || 
@@ -29,7 +29,7 @@ module.exports = class SayCommand extends Command {
                             game == "FFXIV"
                         ) 
                             return true;
-                        return 'invalid game. Witch game do you play ? Valide games are : ```wow, ffxiv``` \n Jeu invalide. A quelle jeu jouez-vous ? Jeux valides : ```wow, ffxiv```';
+                        return 'invalid game. Witch game do you play ? \n A quelle jeu jouez-vous ? ```wow, ffxiv```';
                     } 
                 },{
                     key: 'server',

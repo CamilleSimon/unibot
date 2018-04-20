@@ -45,8 +45,8 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, { game, server, name }){
-		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + ", " + server + ", " + name);
+		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name);
         if(game == "wow")
-            say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);
+            return msg.say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);
 	}
 }

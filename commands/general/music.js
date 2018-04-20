@@ -50,7 +50,7 @@ function help (msg) {
     msg.channel.sendMessage(tosend.join('\n'));
 }
 
-function play (msg) {
+function play (msg, song) {
     if (queuee[msg.guild.name] === undefined) return msg.channel.sendMessage(`Add some songs to the queue first with ${tokens.prefix}add`);
         if (!msg.guild.voiceConnection) join(msg);
         if (queuee[msg.guild.name].playing) return msg.channel.sendMessage('Already Playing');

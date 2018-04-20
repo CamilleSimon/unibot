@@ -92,7 +92,7 @@ function play2 (msg) {
             dispatcher.on('end', () => {
                     collector.stop();
                     queue[msg.guild.id].songs.shift();
-                    play(queuee[msg.guild.id].songs[0]);
+                    play(queuee[msg.guild.name].songs[0]);
                 });
             dispatcher.on('error', (err) => {
                 return msg.channel.sendMessage('error: ' + err).then(() => {

@@ -5,10 +5,11 @@ var fs = require("fs");
 var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 
-var url = 'mongodb://172.18.0.45:27017/unibot';
+var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 //Update one specific day of the schedule
 function updateOneDaySchedule(channel, day, time, name){
+    console.log("On updateOneDaySchedule")
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var query = {};

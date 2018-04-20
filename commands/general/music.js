@@ -30,7 +30,7 @@ function add (url, username, msg) {
     	    queuee[msg.guild.name].playing = false;
     	    queuee[msg.guild.name].songs = [];
     	}
-    	    queuee[msg.guild.name].songs.push({url: url, title: info.title, requester: msg.author.username});
+    	queuee[msg.guild.name].songs.push({url: url, title: info.title, requester: msg.author.username});
         console.log(queuee);
         console.log(queuee[0]);
     	msg.channel.sendMessage(`added **${info.title}** to the queue`);
@@ -38,13 +38,13 @@ function add (url, username, msg) {
 }
 
 function queue (msg) {
-        if (queuee[msg.guild.name] === undefined) 
-            return msg.channel.sendMessage(`Add some songs to the queue first with ${tokens.prefix}add`);
-        var tosend = [];
-        queuee[msg.guild.name].songs.forEach((song, i) => { 
-            tosend.push(`${i+1}. ${song.title} - Requested by: ${song.requester}`);
-        });
-        msg.channel.sendMessage(`__**${msg.guild.name}'s Music Queue:**__ Currently **${tosend.length}** songs queued ${(tosend.length > 15 ? '*[Only next 15 shown]*' : '')}\n\`\`\`${tosend.slice(0,15).join('\n')}\`\`\``);
+    if (queuee[msg.guild.name] === undefined) 
+        return msg.channel.sendMessage(`Add some songs to the queue first with ${tokens.prefix}add`);
+    var tosend = [];
+    queuee[msg.guild.name].songs.forEach((song, i) => { 
+        tosend.push(`${i+1}. ${song.title} - Requested by: ${song.requester}`);
+    });
+    msg.channel.sendMessage(`__**${msg.guild.name}'s Music Queue:**__ Currently **${tosend.length}** songs queued ${(tosend.length > 15 ? '*[Only next 15 shown]*' : '')}\n\`\`\`${tosend.slice(0,15).join('\n')}\`\`\``);
 }
 
 function help (msg) {

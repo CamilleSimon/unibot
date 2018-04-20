@@ -50,12 +50,12 @@ function help (msg) {
     msg.channel.sendMessage(tosend.join('\n'));
 }
 
-function play2 (msg, song) {
+function play (msg, song) {
     if (queuee[msg.guild.name] === undefined) return msg.channel.sendMessage(`Add some songs to the queue first with ${tokens.prefix}add`);
         if (!msg.guild.voiceConnection) join(msg);
         if (queuee[msg.guild.name].playing) return msg.channel.sendMessage('Already Playing');
         queuee[msg.guild.name].playing = true;
-        	console.log(song + 'test');
+         	console.log(song + 'test');
         	var dispatcher;
             console.log(song);
             if (song === undefined) return msg.channel.sendMessage('Queue is empty').then(() => {
@@ -95,6 +95,7 @@ function play2 (msg, song) {
                     play(queuee[msg.guild.name].songs.shift());
                 });
             });
+        (queuee[msg.guild.name].songs.shift());
 }
 
 module.exports = class ReplyCommand extends Command {
@@ -124,7 +125,7 @@ module.exports = class ReplyCommand extends Command {
     run(msg, { commands, url }) {
         console.log("Author username : " + msg.author.lastMessage.member.nickname + ", command : " + commands + ", url : " + url);
             if(commands == 'play'){
-                play2(msg)
+                play(msg, song)
             }
             else if (commands == 'help'){
                 help (msg)

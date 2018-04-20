@@ -88,12 +88,14 @@ function play2 (msg) {
                     msg.channel.sendMessage(`time: ${Math.floor(dispatcher.time / 60000)}:${Math.floor((dispatcher.time % 60000)/1000) <10 ? '0'+Math.floor((dispatcher.time % 60000)/1000) : Math.floor((dispatcher.time % 60000)/1000)}`);
                 }
             });
-
+            dispatcher.on(m.content.startsWith(tokens.prefix + 'stop'), () => {
+            collector.stop();
+                play(queuee[msg.guild.name].songs.shift());
+            });
             dispatcher.on('end', () => {
-                    collector.stop();
-                    queue[msg.guild.id].songs.shift();
-                    play(queuee[msg.guild.name].songs[0]);
-                });
+                collector.stop();
+                play(queuee[msg.guild.name].songs.shift());
+            });
             dispatcher.on('error', (err) => {
                 return msg.channel.sendMessage('error: ' + err).then(() => {
                     collector.stop();

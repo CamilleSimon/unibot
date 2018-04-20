@@ -39,14 +39,19 @@ module.exports = class SayCommand extends Command {
                     key: 'name',
                     prompt: ' what is the name of your character ? \n Quelle est le nom de ',
                     type: 'string'
+                },{
+                    key: 'discord-user',
+                    prompt: ' to which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?',
+                    type: 'string'
                 }
             ]
         });
     }
 
 	run(msg, { game, server, name }){
-		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name);
-        if(game == "wow")
-            return msg.say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);
+		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name + ", " + discord-user);
+        //TODO Check valide characters => https://scotch.io
+        //if(game == "wow")
+        //    return msg.say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);
 	}
 }

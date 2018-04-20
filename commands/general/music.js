@@ -142,7 +142,7 @@ module.exports = class ReplyCommand extends Command {
                 join(msg)
             }
              else if (commands == 'stop' ){
-                leave(msg);
+                stop(msg);
             }
             else if (commands == 'queue2' ){
                 console.log(queuee[msg.guild.name]);

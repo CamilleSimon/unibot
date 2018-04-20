@@ -4,7 +4,7 @@ const util = require('./util');
 var MongoClient = require('mongodb').MongoClient;
 var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
-var url = 'mongodb:// ' + jsonConfig.mongodb + ':27017/unibot';
+var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 var scheduleTable;
 
 function startTime(day, pos){

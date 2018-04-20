@@ -9,6 +9,7 @@ var url = 'mongodb:// ' + jsonConfig.mongodb + ':27017/unibot';
 
 //Update one specific day of the schedule
 function updateOneDaySchedule(channel, day, time, name){
+    concole.log("On updateOneDaySchedule")
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var query = {};

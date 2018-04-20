@@ -14,8 +14,6 @@ function join (msg) {
 
 function leave (msg) {
     var voiceChannel = msg.member.voiceChannel;
-    if (!voiceChannel || voiceChannel.type !== 'voice') 
-        return msg.reply('I couldn\'t connect to your voice channel...');
     voiceChannel.leave();
 }
 
@@ -76,6 +74,9 @@ function play2 (msg) {
                     msg.channel.sendMessage('resumed').then(() => {dispatcher.resume();});
                 } else if (m.content.startsWith(tokens.prefix + 'skip')){
                     msg.channel.sendMessage('skipped').then(() => {dispatcher.end();});
+                } else if (m.content.startsWith(tokens.prefix + 'stop')){
+                    msg.channel.sendMessage('stop').then(() => {dispatcher.end();};
+                    collector.stop(););
                 } else if (m.content.startsWith('volume+')){
                     if (Math.round(dispatcher.volume*50) >= 100) return msg.channel.sendMessage(`Volume: ${Math.round(dispatcher.volume*50)}%`);
                     dispatcher.setVolume(Math.min((dispatcher.volume*50 + (2*(m.content.split('+').length-1)))/50,2));
@@ -88,12 +89,11 @@ function play2 (msg) {
                     msg.channel.sendMessage(`time: ${Math.floor(dispatcher.time / 60000)}:${Math.floor((dispatcher.time % 60000)/1000) <10 ? '0'+Math.floor((dispatcher.time % 60000)/1000) : Math.floor((dispatcher.time % 60000)/1000)}`);
                 }
             });
-
             dispatcher.on('end', () => {
-                    collector.stop();
-                    queue[msg.guild.id].songs.shift();
-                    play(queuee[msg.guild.id].songs[0]);
-                });
+                collector.stop();
+                play(queuee[msg.guild.name].songs.shift());
+                msg.member.voiceChannel.leave();
+            });
             dispatcher.on('error', (err) => {
                 return msg.channel.sendMessage('error: ' + err).then(() => {
                     collector.stop();

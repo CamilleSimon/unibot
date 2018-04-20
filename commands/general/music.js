@@ -50,7 +50,7 @@ function help (msg) {
     msg.channel.sendMessage(tosend.join('\n'));
 }
 
-function play (msg, song) {
+function play (msg) {
     if (queuee[msg.guild.name] === undefined) return msg.channel.sendMessage(`Add some songs to the queue first with ${tokens.prefix}add`);
         if (!msg.guild.voiceConnection) join(msg);
         if (queuee[msg.guild.name].playing) return msg.channel.sendMessage('Already Playing');
@@ -125,7 +125,7 @@ module.exports = class ReplyCommand extends Command {
     run(msg, { commands, url }) {
         console.log("Author username : " + msg.author.lastMessage.member.nickname + ", command : " + commands + ", url : " + url);
             if(commands == 'play'){
-                play(msg, song)
+                play(msg)
             }
             else if (commands == 'help'){
                 help (msg)

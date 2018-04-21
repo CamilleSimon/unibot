@@ -6,19 +6,19 @@ var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
-function addplayer(author, game, server, name){
+function addplayer(discorduser, game, server, name){
     var query = {};
-    console.log("Command : playeradd, author : " + author + ", arguments : " + game + ", " + server + ", " + name);
-    query["discord-user"] = author;
+    console.log("Command : playeradd, author : " + discorduser + ", arguments : " + game + ", " + server + ", " + name);
+    query["discord-user"] = discorduser;
     if (game == "ffxiv") {
         var player = {
-            "discord-user" : author,
+            "discord-user" : discorduser,
             "ffxiv-server" : server,
             "ffxiv-name" : name   
         };
     } else if (game == "wow"){
         var player = {
-            "discord-user" : author,
+            "discord-user" : discorduser,
             "wow-server" : server,
             "wow-name" : name   
         };
@@ -68,18 +68,18 @@ module.exports = class SayCommand extends Command {
                     key: 'name',
                     prompt: ' what is the name of your character ? \n Quelle est le nom de ',
                     type: 'string'
-                }//,{
-                    //key: 'discord-user',
-                   // prompt: ' to which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?',
-                   // type: 'string'
-                //}
+                },{
+                    key: 'discorduser',
+                    prompt: ' to which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?',
+                    type: 'string'
+                }
             ]
         });
     }
 
-	run(msg, { game, server, name }){
+	run(msg, {discorduser, game, server, name }){
 //		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name);
-        addplayer(msg.author, game, server, name);
+        addplayer(discorduser, game, server, name);
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")
         //    return msg.say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);

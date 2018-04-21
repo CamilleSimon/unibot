@@ -9,8 +9,6 @@ var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 function addplayer(discorduser, game, server, name, channel){
     //query init
     var query = {};
-    //tranforme 'game' variable in only minus letters
-    game = game.toLowerCase();
     //the query has to find an discord-user
     query["discord-user"] = discorduser;
     //the new character to add
@@ -22,6 +20,7 @@ function addplayer(discorduser, game, server, name, channel){
     //connection to the DB
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
+        //add to the end the array 'characters' the element 'character'
         var newValue = { $addToSet: {"characters": character}};
         db.collection("players").updateOne(query, newValue, {upsert: true}, function(err,doc) {
             if (err) throw err;
@@ -41,7 +40,7 @@ module.exports = class SayCommand extends Command {
             group: 'player',
             memberName: 'playeradd',
             description: 'Add a player in the database \n Ajoute un joueur à la base de données',
-            examples: ['playeradd wow Shaykan', 'playeradd ffxiv Nyu Mori'],
+            examples: ['playeradd @user wow Shaykan', 'playeradd @user ffxiv Nyu Mori'],
             args: [
                 {
                     key: 'discorduser',
@@ -49,18 +48,15 @@ module.exports = class SayCommand extends Command {
                     type: 'string'
                 },{
                     key: 'game',
-                    prompt: ' witch game do you play ? \n A quelle jeu jouez-vous ? ```wow, ffxiv```',
+                    prompt: ' witch game do you play ? \n A quelle jeu jouez-vous ? \n `wow`, `ffxiv`',
                     type: 'string',
                     validate: game => {
+                        game = game.toLowerCase();
                         if (game == "wow" || 
-                            game == "Wow" || 
-                            game == "WoW" || 
-                            game == "WOW" || 
-                            game == "ffxiv" ||
-                            game == "FFXIV"
+                            game == "ffxiv"
                         ) 
                             return true;
-                        return 'invalid game. Witch game do you play ? \n A quelle jeu jouez-vous ? ```wow, ffxiv```';
+                        return 'invalid game. Witch game do you play ? \n A quelle jeu jouez-vous ? \n `wow`, `ffxiv`';
                     } 
                 },{
                     key: 'server',
@@ -76,6 +72,8 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, {discorduser, game, server, name }){
+        server = server.toLowerCase();
+        name = name.toLowerCase();
 		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name);
         addplayer(discorduser, game, server, name, msg);
         //TODO Check valide characters => https://scotch.io

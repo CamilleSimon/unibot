@@ -15,14 +15,13 @@ function addplayer(author, game, server, name){
             "ffxiv-server" : server,
             "ffxiv-name" : name   
         };
-    };
-    else if (game == wow){
+    } else if (game == wow){
         var player = {
             "discord-user" : author,
             "wow-server" : server,
             "wow-name" : name   
         };
-    };
+    }
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
         db.collection("players").findOneAndUpdate(query, player, {upsert: true}, function(err,doc) {

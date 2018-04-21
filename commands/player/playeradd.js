@@ -6,19 +6,19 @@ var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
-function addplayer(msg.author, game, server, name){
+function addplayer(author, game, server, name){
     var query = {};
-    query["discord-user"] = msg.author;
+    query["discord-user"] = author;
     if (game == ffxiv) {
         var player = {
-            "discord-user" : msg.author,
+            "discord-user" : author,
             "ffxiv-server" : server,
             "ffxiv-name" : name   
         };
     };
     else (game == wow){
         var player = {
-            "discord-user" : msg.author,
+            "discord-user" : author,
             "wow-server" : server,
             "wow-name" : name   
         };

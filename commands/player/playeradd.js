@@ -16,7 +16,7 @@ function addplayer(author, game, server, name){
             "ffxiv-name" : name   
         };
     };
-    else (game == wow){
+    else if (game == wow){
         var player = {
             "discord-user" : author,
             "wow-server" : server,

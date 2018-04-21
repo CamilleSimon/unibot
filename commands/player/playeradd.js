@@ -25,7 +25,7 @@ function addplayer(discorduser, game, server, name){
     }
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
-        db.collection("players").findOneAndUpdate(query, player, {upsert: true}, function(err,doc) {
+        db.collection("players").insertOne(player, function(err,doc) {
             if (err) throw err;
             channel.say("Success : player " + name + " added to schedule.");
             db.close();

@@ -77,7 +77,7 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, { game, server, name }){
-		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name +);
+//		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name +);
         addplayer(msg.author, game, server, name);
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")

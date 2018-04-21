@@ -6,6 +6,32 @@ var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
+function addplayer(msg.author, game, server, name){
+    var query = {};
+    query["discord-user"] = msg.author;
+    if (game == ffxiv) {
+        var player = {
+            "discord-user" : msg.author,
+            "ffxiv-server" : server,
+            "ffxiv-name" : name   
+        };
+    };
+    else (game == wow){
+        var player = {
+            "discord-user" : msg.author,
+            "wow-server" : server,
+            "wow-name" : name   
+        };
+    };
+    MongoClient.connect(url, function(err,db){
+        if (err) throw err;
+        db.collection("players").findOneAndUpdate(query, player, {upsert: true}, function(err,doc) {
+            if (err) throw err;
+            channel.say("Success : player " + name + " added to schedule.");
+            db.close();
+        });
+    });
+}
 
 //TODO 
 
@@ -42,17 +68,17 @@ module.exports = class SayCommand extends Command {
                     key: 'name',
                     prompt: ' what is the name of your character ? \n Quelle est le nom de ',
                     type: 'string'
-                },{
-                    key: 'discord-user',
-                    prompt: ' to which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?',
-                    type: 'string'
-                }
+                }//,{
+                    //key: 'discord-user',
+                   // prompt: ' to which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?',
+                   // type: 'string'
+                //}
             ]
         });
     }
 
-	run(msg, { game, server, name, discorduser }){
-		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name + ", " + discorduser);
+	run(msg, { game, server, name }){
+		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name +);
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")
         //    return msg.say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);

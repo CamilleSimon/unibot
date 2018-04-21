@@ -9,7 +9,6 @@ var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 //Update one specific day of the schedule
 function updateOneDaySchedule(channel, day, time, name){
-    console.log("On updateOneDaySchedule")
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var query = {};
@@ -87,7 +86,7 @@ module.exports = class SayCommand extends Command {
         var date = new Date(util.switchDayMonth(day));
         date.setYear(2018);
         if(!name)
-            name = msg.author.lastMessage;
+            name = msg.author;
         console.log("Command : scheduleset, author : " + msg.author + ", arguments : " + day + ", " + time + ", " + name);
         updateOneDaySchedule(msg, date, time, name);
 	}

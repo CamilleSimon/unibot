@@ -6,27 +6,27 @@ var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
-//Show the schedule of the author of the message
-function showPlayerSchedule(name, channel){
+//Show the schedule of one player
+function onePlayer(name, channel){
 	var msg = "";
 	var player;
 	var query = {};
-	query["name"] = name;
+	query["discord-user"] = name;
 	MongoClient.connect(url, function(err, db) {
 	  	if (err) throw err;
-	  	db.collection("users").findOne(query, function(err, result) {
+	  	db.collection("players").findOne(query, function(err, result) {
 	    	if (err) throw err;
 	    	console.log(result);
 	    	if(!result)
-	    		channel.say("Error : no player named "+ name + " recorded in the schedule.");
+	    		channel.say("Error : no user named "+ name + " recorded in the schedule.");
 	    	else{
 				for(attr in result){
-					if (attr == "name")
+					if (attr == "discord-user")
 						msg += "**" + result[attr] + "**```";
-					if (attr == "schedule"){
-						schedule = result[attr];
-						for(day in schedule){
-							time = result[attr][day];
+					if (attr == "characters"){
+						characters = result[attr];
+						for(character in characters){
+							/*time = result[attr][day];
 							if(time){
 								if(time == "available" || time == "unavailable")
 									msg += util.formalizeDay(day) + " : " + time + " all day\n";
@@ -39,7 +39,7 @@ function showPlayerSchedule(name, channel){
 								}
 							}
 							else
-								msg += util.formalizeDay(day) + " : \n";
+								msg += util.formalizeDay(day) + " : \n";*/
 						}
 					}
 				}
@@ -111,12 +111,9 @@ module.exports = class SayCommand extends Command {
 
     run(msg, { name }){
         console.log("Command : scheduleshow, author : " + msg.author.lastMessage.member.nickname + ", arguments : "+ name);
-    	if(name == "all")
-    		showAll(msg);
-    	else if(!name)
-			showPlayerSchedule(msg.author.lastMessage.member.nickname, msg);
-		else{
-			showPlayerSchedule(name, msg);
+    	if(name == "all" || !name)
+    		all(msg);
+		onePlayer(name, msg);
 		}
 	}
 }

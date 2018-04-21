@@ -24,13 +24,13 @@ function add(discorduser, game, server, name, channel){
         var newValue = { $addToSet: {"characters": character}};
         db.collection("players").updateOne(query, newValue, {upsert: true}, function(err,doc) {
             if (err) throw err;
-            channel.say("Success :" + name + " is attached to " + discorduser + " user !");
+            channel.say("Success : " + name + " is attached to " + discorduser + " user !");
             db.close();
         });
     });
 }
 
-//TODO 
+//TODO check is the character really existe in the game => ask again if the character is not valide
 
 //Analyze chat message part
 module.exports = class SayCommand extends Command {

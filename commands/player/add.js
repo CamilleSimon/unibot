@@ -45,7 +45,12 @@ module.exports = class SayCommand extends Command {
                 {
                     key: 'discorduser',
                     prompt: ' to which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?',
-                    type: 'string'
+                    type: 'string',
+                    validate: discoruser =>{
+                        if(!discoruser)
+                            return ' invalide discord user. To which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?';
+                        return true;
+                    }
                 },{
                     key: 'game',
                     prompt: ' witch game do you play ? \n A quelle jeu jouez-vous ? \n `wow`, `ffxiv`',
@@ -61,11 +66,21 @@ module.exports = class SayCommand extends Command {
                 },{
                     key: 'server',
                     prompt: ' on which server do you play ? \n Sur quelle serveur jouez-vous ?',
-                    type: 'string'
+                    type: 'string',
+                    validate: server => {
+                        if(!server)
+                            ' invalide server. On which server do you play ? \n Sur quelle serveur jouez-vous ?';
+                        return true;
+                    }
                 },{
                     key: 'name',
-                    prompt: ' what is the name of your character ? \n Quelle est le nom de ',
-                    type: 'string'
+                    prompt: ' what is the name of your character ? \n Quelle est le nom de votre personnage ?',
+                    type: 'string',
+                    validate: name => {
+                        if(!name)
+                            return ' invalide name. What is the name of your character ? \n Quelle est le nom de votre personnage ?';
+                        return true;
+                    }
                 }
             ]
         });
@@ -75,7 +90,7 @@ module.exports = class SayCommand extends Command {
         game = game.toLowerCase();
         server = server.toLowerCase();
         name = name.toLowerCase();
-		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name);
+		console.log("Command : playeradd, author : " + msg.author.member.nickname + ", arguments : " + game + ", " + server + ", " + name);
         add(discorduser, game, server, name, msg);
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")

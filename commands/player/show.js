@@ -114,6 +114,5 @@ module.exports = class SayCommand extends Command {
     	if(name == "all" || !name)
     		all(msg);
 		onePlayer(name, msg);
-		}
 	}
 }

@@ -9,7 +9,7 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['general', 'General'],
-        ['ffxiv', 'FFXIV'],
+        ['schedule', 'Schedule'],
         ['player', 'Player']
     ])
     .registerDefaultGroups()

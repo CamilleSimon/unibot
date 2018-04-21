@@ -72,6 +72,7 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, {discorduser, game, server, name }){
+        game = game.toLowerCase();
         server = server.toLowerCase();
         name = name.toLowerCase();
 		console.log("Command : playeradd, author : " + msg.author + ", arguments : " + game + ", " + server + ", " + name);

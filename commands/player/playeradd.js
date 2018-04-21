@@ -9,13 +9,13 @@ var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 function addplayer(author, game, server, name){
     var query = {};
     query["discord-user"] = author;
-    if (game == ffxiv) {
+    if (game == "ffxiv") {
         var player = {
             "discord-user" : author,
             "ffxiv-server" : server,
             "ffxiv-name" : name   
         };
-    } else if (game == wow){
+    } else if (game == "wow"){
         var player = {
             "discord-user" : author,
             "wow-server" : server,

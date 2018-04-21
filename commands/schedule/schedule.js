@@ -116,7 +116,7 @@ module.exports = class SayCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'schedule',
-            group: 'ffxiv',
+            group: 'schedule',
             memberName: 'schedule',
             description: 'Show the entire schedule of all the players.',
             examples: ['schedule']

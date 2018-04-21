@@ -106,7 +106,7 @@ class ReplyCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'roster',
-            group: 'ffxiv',
+            group: 'schedule',
             memberName: 'roster',
             description: 'Manages the roster',
             examples: ['roster'],

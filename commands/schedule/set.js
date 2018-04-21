@@ -39,7 +39,7 @@ module.exports = class SayCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'scheduleset',
-            group: 'ffxiv',
+            group: 'schedule',
             memberName: 'scheduleset',
             description: 'Set Schedule',
             examples: ['scheduleset Monday 12:00-14:00', 'scheduleset 12/09 12:00-23:00'],

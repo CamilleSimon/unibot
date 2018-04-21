@@ -30,7 +30,7 @@ module.exports = class SayCommand extends Command {
   constructor(client) {
     super(client, {
         name: 'scheduledelete',
-        group: 'ffxiv',
+        group: 'schedule',
         memberName: 'scheduledelete',
         description: 'Deletes a player from the schedule.',
         examples: ['scheduledelete Nyu Mori'],

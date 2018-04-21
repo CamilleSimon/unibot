@@ -8,6 +8,7 @@ var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 function addplayer(author, game, server, name){
     var query = {};
+    console.log("Command : playeradd, author : " + author + ", arguments : " + game + ", " + server + ", " + name +);
     query["discord-user"] = author;
     if (game == "ffxiv") {
         var player = {

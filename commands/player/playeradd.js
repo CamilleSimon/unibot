@@ -14,22 +14,18 @@ function addplayer(discorduser, game, server, name, channel){
         var player = {
             "discord-user" : discorduser,
             "ffxiv-server" : server,
-            "ffxiv-name" : name,
-            "wow-server" : undefined,
-            "wow-name" : undefined,
+            "ffxiv-name" : name
         };
     } else if (game == "wow"){
         var player = {
             "discord-user" : discorduser,
-            "ffxiv-server" : undefined,
-            "ffxiv-name" : undefined,
             "wow-server" : server,
-            "wow-name" : name,
+            "wow-name" : name
         };
     }
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
-        db.collection("players").findOneAndUpdate(query, player, {upsert: true}, function(err,doc) {
+        db.collection("players").updateOne(query, player, {upsert: true}, function(err,doc) {
             if (err) throw err;
             channel.say("Success :" + game + " player " + name + " added.");
             db.close();

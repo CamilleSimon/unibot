@@ -25,7 +25,8 @@ function addplayer(discorduser, game, server, name, channel){
     }
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
-        db.collection("players").updateOne(query, player, {upsert: true}, function(err,doc) {
+        var newValue = { $set: player};
+        db.collection("players").updateOne(query, newValue, {upsert: true}, function(err,doc) {
             if (err) throw err;
             channel.say("Success :" + game + " player " + name + " added.");
             db.close();

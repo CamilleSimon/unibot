@@ -99,7 +99,7 @@ module.exports = {
 	capsFirstLetter : function(msg){
 		msg[0].toUpperCase();
 		var prevChar = msg[0];
-		for(var i = 1; i < msg.length()-1; i++){
+		for(var i = 1; i < msg.length-1; i++){
 			if(prevChar == ' ')
 				msg[i] = msg[i].toUpperCase();
 			prevChar = msg[i];

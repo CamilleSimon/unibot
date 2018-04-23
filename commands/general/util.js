@@ -105,7 +105,7 @@ module.exports = {
 				res += msg.substring(i,i+1).toUpperCase();
 			else
 				res += msg.substring(i,i+1);
-			prevChar = msgsubstring(i,i+1);
+			prevChar = msg.substring(i,i+1);
 		}
 		return res;
 	}

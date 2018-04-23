@@ -25,7 +25,7 @@ function onePlayer(name, channel){
 					if (attr == "characters"){
 						characters = result[attr];
 						for(character in characters){
-							console.log(character);
+							console.log(characters[character]);
 							/*time = result[attr][day];
 							if(time){
 								if(time == "available" || time == "unavailable")

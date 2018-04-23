@@ -109,10 +109,10 @@ module.exports = class SayCommand extends Command {
         });
     }
 
-    run(msg, { name }){
-        console.log("Command : playershow, author : " + msg.author.lastMessage.member.nickname + ", arguments : "+ name);
-    	if(name == "all" || !name)
+    run(msg, { discorduser }){
+        console.log("Command : playershow, author : " + msg.author.lastMessage.member.nickname + ", arguments : "+ discorduser);
+    	if(discorduser == "all" || !discorduser)
     		all(msg);
-		onePlayer(name, msg);
+		onePlayer(discorduser, msg);
 	}
 }

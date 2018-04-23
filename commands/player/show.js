@@ -16,7 +16,6 @@ function onePlayer(name, channel){
 	  	if (err) throw err;
 	  	db.collection("players").findOne(query, function(err, result) {
 	    	if (err) throw err;
-	    	console.log(result);
 	    	if(!result)
 	    		channel.say("Error : no user named "+ name + " recorded in the schedule.");
 	    	else{
@@ -25,8 +24,8 @@ function onePlayer(name, channel){
 						msg += "**" + result[attr] + "**```";
 					if (attr == "characters"){
 						characters = result[attr];
-						console.log(characters);
-						//for(character in characters){
+						for(character in characters){
+							console.log(character);
 							/*time = result[attr][day];
 							if(time){
 								if(time == "available" || time == "unavailable")
@@ -41,7 +40,7 @@ function onePlayer(name, channel){
 							}
 							else
 								msg += util.formalizeDay(day) + " : \n";*/
-						//}
+						}
 					}
 				}
 		    	channel.say(msg + "```");

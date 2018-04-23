@@ -97,17 +97,16 @@ module.exports = {
 	},
 
 	capsFirstLetter : function(msg){
-		var res = msg;
-		res[0] = msg[0].toUpperCase();
-		var prevChar = msg[0];
+		var res = "";
+		res += msg.substring(0,1).toUpperCase();
+		var prevChar = msg.substring(0,1);
 		for(var i = 1; i < msg.length-1; i++){
 			if(prevChar == ' ')
-				res[i] = msg[i].toUpperCase();
+				res += msg.substring(i,i+1).toUpperCase();
 			else
-				res[i] = msg[i];
-			prevChar = msg[i];
+				res += msg.substring(i,i+1);
+			prevChar = msgsubstring(i,i+1);
 		}
-		console.log(res);
 		return res;
 	}
 };

@@ -24,7 +24,8 @@ function add(discorduser, game, server, name, channel){
         var newValue = { $addToSet: {"characters": character}};
         db.collection("players").updateOne(query, newValue, {upsert: true}, function(err,doc) {
             if (err) throw err;
-            channel.say("Success : " + name + " is attached to " + discorduser + " user !");
+            console.log(discorduser);
+            channel.say("Success : " + capsFirstLetter(name) + " is attached to " + discorduser + " user !");
             db.close();
         });
     });

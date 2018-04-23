@@ -94,5 +94,16 @@ module.exports = {
 			case 5 : return "Friday";
 			case 6 : return "Saturday";
 		}
+	},
+
+	capsFirstLetter : function(msg){
+		msg[0].toUpperCase();
+		var prevChar = msg[0];
+		for(var i = 1; i < msg.length()-1; i++){
+			if(prevChar == ' ')
+				msg[i] = msg[i].toUpperCase();
+			prevChar = msg[i];
+		}
+		return msg;
 	}
 };

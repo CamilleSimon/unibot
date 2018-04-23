@@ -107,6 +107,7 @@ module.exports = {
 				res[i] = msg[i];
 			prevChar = msg[i];
 		}
+		console.log(res);
 		return res;
 	}
 };

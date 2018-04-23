@@ -51,7 +51,7 @@ function onePlayer(name, channel){
 }
 
 //Show the schedule of all the players
-function showSchedule(channel){
+function all(channel){
 	var msg = "";
 	var player;
 	MongoClient.connect(url, function(err, db) {
@@ -110,7 +110,7 @@ module.exports = class SayCommand extends Command {
     }
 
     run(msg, { name }){
-        console.log("Command : scheduleshow, author : " + msg.author.lastMessage.member.nickname + ", arguments : "+ name);
+        console.log("Command : playershow, author : " + msg.author.lastMessage.member.nickname + ", arguments : "+ name);
     	if(name == "all" || !name)
     		all(msg);
 		onePlayer(name, msg);

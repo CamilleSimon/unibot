@@ -25,7 +25,8 @@ function onePlayer(name, channel){
 						msg += "**" + result[attr] + "**```";
 					if (attr == "characters"){
 						characters = result[attr];
-						for(character in characters){
+						console.log(characters);
+						//for(character in characters){
 							/*time = result[attr][day];
 							if(time){
 								if(time == "available" || time == "unavailable")
@@ -40,7 +41,7 @@ function onePlayer(name, channel){
 							}
 							else
 								msg += util.formalizeDay(day) + " : \n";*/
-						}
+						//}
 					}
 				}
 		    	channel.say(msg + "```");

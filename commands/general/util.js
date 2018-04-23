@@ -100,7 +100,7 @@ module.exports = {
 		var res = "";
 		res += msg.substring(0,1).toUpperCase();
 		var prevChar = msg.substring(0,1);
-		for(var i = 1; i < msg.length-1; i++){
+		for(var i = 1; i < msg.length; i++){
 			if(prevChar == ' ')
 				res += msg.substring(i,i+1).toUpperCase();
 			else

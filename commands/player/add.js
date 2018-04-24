@@ -6,8 +6,8 @@ var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
-function add(discorduser, game, server, name, channel){
-    console.log(channel.mentions.users.first());
+function add(discorduser, game, server, name, channel, user){
+    console.log(user);
     //var id = user.id;
     //query init
     var query = {};
@@ -89,11 +89,12 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, {discorduser, game, server, name }){
+        var user = channel.mentions.users.first();
         game = game.toLowerCase();
         server = server.toLowerCase();
         name = name.toLowerCase();
 		console.log("Command : playeradd, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + game + ", " + server + ", " + name);
-        add(discorduser, game, server, name, msg);
+        add(discorduser, game, server, name, msg, user);
         
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")

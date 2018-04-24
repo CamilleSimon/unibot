@@ -60,7 +60,7 @@ function all(channel){
 	var player;
 	MongoClient.connect(url, function(err, db) {
 	  	if (err) throw err;
-	  	db.collection("users").find({}).toArray(function(err, result) {
+	  	db.collection("players").find({}).toArray(function(err, result) {
 			if (err) throw err;
 			console.log(result);
 	    	for(var i in result){

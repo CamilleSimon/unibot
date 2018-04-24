@@ -68,7 +68,7 @@ function all(channel){
 	    		player = result[i];
 				for(attr in player){
 					if (attr == "discord-user"){
-						msg += "**" + result[attr] + "**```";
+						msg += "**" + player[attr] + "**```";
 						msg += "Game       | Server     | Character\n";
 						msg += "-----------+------------+--------------------------\n";
 					}
@@ -123,7 +123,8 @@ module.exports = class SayCommand extends Command {
     run(msg, { discorduser }){
         console.log("Command : playershow, author : " + msg.author.lastMessage.member.nickname + ", arguments : "+ discorduser);
     	if(discorduser == "all")
-    		all(msg);
-		onePlayer(discorduser, msg);
+			all(msg);
+		else
+			onePlayer(discorduser, msg);
 	}
 }

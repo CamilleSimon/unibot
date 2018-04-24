@@ -7,9 +7,27 @@ var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 function init(msg){
-    var playersCollection = msg.guild.members.array();
-    console.log("hello");
-    console.log(playersCollection);
+    var guildMemberArray = msg.guild.members.array();
+    var records = new Array();
+    var record;
+    for(guildMember in guildMemberArray){
+        record = {
+            "discordId" : guildMember.id,
+            "nickname" : guildMember.nickname,
+            "user" : guildMember.user
+        }
+        records.push(record);
+    }
+    console.log(records);
+
+    MongoClient.connect(url, function(err,db){
+        if (err) throw err;
+        db.collection("players").insertMany(newValue, function(err,doc) {
+            if (err) throw err;
+            msg.say("Success : " + res.insertCount + " players added !s");
+            db.close();
+        });
+    });
     return true;
 }
 

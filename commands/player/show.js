@@ -36,7 +36,7 @@ function onePlayer(name, channel){
 									msg += temp.substring(0,11);
 								else
 									msg += temp;
-								for(var i = character[field].length; i < 11; i++){
+								for(var i = character[field].length; i < 10; i++){
 									msg += " ";
 								}
 								if(field != "name")

@@ -27,21 +27,10 @@ function onePlayer(name, channel){
 						for(charIndex in characters){
 							character = characters[charIndex];
 							console.log(character);
-							console.log(server.members.get("id", name))
-							/*time = result[attr][day];
-							if(time){
-								if(time == "available" || time == "unavailable")
-									msg += util.formalizeDay(day) + " : " + time + " all day\n";
-								else{
-									msg += util.formalizeDay(day) + " : " + util.convertNumToText(time[0]) + "-";
-									if(time[1] == 48)
-										msg += "00:00\n";
-									else
-										msg += util.convertNumToText(time[1]) + "\n";
-								}
+							//console.log(server.members.get("id", name))
+							for(field in character){
+								console.log(field);
 							}
-							else
-								msg += util.formalizeDay(day) + " : \n";*/
 						}
 					}
 				}

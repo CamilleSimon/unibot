@@ -7,6 +7,8 @@ var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 function add(discorduser, game, server, name, channel){
+    var user = msg.mentions.users.first();
+    var id = user.id;
     //query init
     var query = {};
     //the query has to find an discord-user
@@ -21,7 +23,7 @@ function add(discorduser, game, server, name, channel){
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
         //add to the end the array 'characters' the element 'character'
-        var newValue = { $addToSet: {"characters": character}};
+        var newValue = { $set: { "user": user }, $addToSet: {"characters": character}};
         db.collection("players").updateOne(query, newValue, {upsert: true}, function(err,doc) {
             if (err) throw err;
             channel.say("Success : " + util.capsFirstLetter(name) + " is attached to " + discorduser + " user !");
@@ -92,7 +94,7 @@ module.exports = class SayCommand extends Command {
         name = name.toLowerCase();
 		console.log("Command : playeradd, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + game + ", " + server + ", " + name);
         add(discorduser, game, server, name, msg);
-        console.log(msg.mentions.users.first());
+        
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")
         //    return msg.say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);

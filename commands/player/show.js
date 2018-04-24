@@ -73,7 +73,7 @@ function all(channel){
 						msg += "-----------+------------+--------------------------\n";
 					}
 					if (attr == "characters"){
-						characters = result[attr];
+						characters = player[attr];
 						for(charIndex in characters){
 							character = characters[charIndex];
 							//console.log(server.members.get("id", name))

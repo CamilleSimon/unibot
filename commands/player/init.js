@@ -16,9 +16,9 @@ function init(msg){
 module.exports = class SayCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'initPlayersDataBase',
+            name: 'init',
             group: 'player',
-            memberName: 'initDataBase',
+            memberName: 'init',
             description: '',
             examples: ['']
         });

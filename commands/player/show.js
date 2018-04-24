@@ -61,8 +61,10 @@ function all(channel){
 	MongoClient.connect(url, function(err, db) {
 	  	if (err) throw err;
 	  	db.collection("users").find({}).toArray(function(err, result) {
-	    	if (err) throw err;
+			if (err) throw err;
+			console.log(result);
 	    	for(var i in result){
+				console.log(result[i]);
 	    		player = result[i];
 				for(attr in player){
 					if (attr == "discord-user"){
@@ -120,7 +122,7 @@ module.exports = class SayCommand extends Command {
 
     run(msg, { discorduser }){
         console.log("Command : playershow, author : " + msg.author.lastMessage.member.nickname + ", arguments : "+ discorduser);
-    	if(discorduser == "all" || !discorduser)
+    	if(discorduser == "all")
     		all(msg);
 		onePlayer(discorduser, msg);
 	}

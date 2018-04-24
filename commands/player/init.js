@@ -10,11 +10,11 @@ function init(msg){
     var guildMemberArray = msg.guild.members.array();
     var records = new Array();
     var record;
-    for(guildMember in guildMemberArray){
+    for(index in guildMemberArray){
         record = {
-            "discordId" : guildMember.id,
-            "nickname" : guildMember.nickname,
-            "user" : guildMember.user
+            "discordId" : guildMemberArray[index].id,
+            "nickname" : guildMemberArray[index].nickname,
+            "user" : guildMemberArray[index].user
         }
         records.push(record);
     }
@@ -24,7 +24,7 @@ function init(msg){
         if (err) throw err;
         db.collection("players").insertMany(records, function(err,doc) {
             if (err) throw err;
-            msg.say("Success : " + res.insertCount + " players added !s");
+            msg.say("Success : " + doc.insertCount + " players added !s");
             db.close();
         });
     });

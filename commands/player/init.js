@@ -8,6 +8,7 @@ var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 function init(msg){
     var playersCollection = msg.guild.members.array();
+    console.log("hello");
     console.log(playersCollection);
     return true;
 }

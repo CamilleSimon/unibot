@@ -105,7 +105,7 @@ module.exports = class SayCommand extends Command {
 	            {
 	                key: 'discorduser',
 	                prompt: ' whom characters do you want to see ? \n De quel joueur voulez-vous voir les personnages ?',
-	                type: 'String',
+	                type: 'string',
 	            }
         	]
         });

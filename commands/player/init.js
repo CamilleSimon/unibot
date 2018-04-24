@@ -18,7 +18,6 @@ function init(msg){
         }
         records.push(record);
     }
-    console.log(records);
 
     MongoClient.connect(url, function(err,db){
         if (err) throw err;

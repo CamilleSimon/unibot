@@ -92,7 +92,7 @@ module.exports = class SayCommand extends Command {
         name = name.toLowerCase();
 		console.log("Command : playeradd, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + game + ", " + server + ", " + name);
         add(discorduser, game, server, name, msg);
-        console.log(msg.mentions.users[0].username);
+        console.log(msg.mentions.users.collection);
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")
         //    return msg.say("https://worldofwarcraft.com/fr-fr/character/" + server + "/" + name);

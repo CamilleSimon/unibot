@@ -22,14 +22,23 @@ function onePlayer(name, channel){
 				for(attr in result){
 					if (attr == "discord-user")
 						msg += "**" + result[attr] + "**```";
+						msg += "Game       | Server     | Character\n";
+						msg += "-----------+------------+--------------------------\n";
 					if (attr == "characters"){
 						characters = result[attr];
 						for(charIndex in characters){
 							character = characters[charIndex];
-							console.log(character);
 							//console.log(server.members.get("id", name))
 							for(field in character){
 								console.log(field);
+								msg += character[field];
+								for(var i = character[field].length; i < 12; i++){
+									msg += " ";
+								}
+								if(field != "name")
+									msg += " | ";
+								else
+									msg += "\n";
 							}
 						}
 					}

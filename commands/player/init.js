@@ -22,7 +22,7 @@ function init(msg){
 
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
-        db.collection("players").insertMany(newValue, function(err,doc) {
+        db.collection("players").insertMany(records, function(err,doc) {
             if (err) throw err;
             msg.say("Success : " + res.insertCount + " players added !s");
             db.close();

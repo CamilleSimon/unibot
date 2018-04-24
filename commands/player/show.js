@@ -65,25 +65,30 @@ function all(channel){
 	    	for(var i in result){
 	    		player = result[i];
 				for(attr in player){
-					if (attr == "name")
-						msg += "**" + player[attr] + "**```";
-					if (attr == "schedule"){
-						schedule = player[attr];
-						for(day in schedule){
-							time = player[attr][day];
-							if(time){
-								if(time == "available" || time == "unavailable")
-									msg += util.formalizeDay(day) + " : " + time + " all day\n";
-								else{
-									msg += util.formalizeDay(day) + " : " + util.convertNumToText(time[0]) + "-";
-									if(time[1] == 48)
-										msg += "00:00\n";
-									else
-										msg += util.convertNumToText(time[1]) + "\n";
+					if (attr == "discord-user"){
+						msg += "**" + result[attr] + "**```";
+						msg += "Game       | Server     | Character\n";
+						msg += "-----------+------------+--------------------------\n";
+					}
+					if (attr == "characters"){
+						characters = result[attr];
+						for(charIndex in characters){
+							character = characters[charIndex];
+							//console.log(server.members.get("id", name))
+							for(field in character){
+								var temp = util.capsFirstLetter(character[field]);
+								if (temp.length > 10)
+									msg += temp.substring(0,11);
+								else
+									msg += temp;
+								for(var i = character[field].length; i < 10; i++){
+									msg += " ";
 								}
+								if(field != "name")
+									msg += " | ";
+								else
+									msg += "\n";
 							}
-							else
-								msg += util.formalizeDay(day) + " : \n";
 						}
 					}
 				}

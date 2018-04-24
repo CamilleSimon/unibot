@@ -89,7 +89,7 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, {discorduser, game, server, name }){
-        var user = channel.mentions.users.first();
+        var user = msg.mentions.users.first();
         game = game.toLowerCase();
         server = server.toLowerCase();
         name = name.toLowerCase();

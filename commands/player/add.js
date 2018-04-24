@@ -7,7 +7,7 @@ var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 function add(discorduser, game, server, name, channel){
-    var user = msg.mentions.users.first();
+    var user = channel.mentions.users.first();
     var id = user.id;
     //query init
     var query = {};

@@ -23,7 +23,7 @@ function add(discorduser, game, server, name, channel, user){
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
         //add to the end the array 'characters' the element 'character'
-        var newValue = { $set: { "user": user }};//, $addToSet: {"characters": character}};
+        var newValue = { $addToSet: {"characters": character}};//$set: { "user": user }};
         db.collection("players").updateOne(query, newValue, {upsert: true}, function(err,doc) {
             if (err) throw err;
             channel.say("Success : " + util.capsFirstLetter(name) + " is attached to " + discorduser + " user !");

@@ -14,7 +14,7 @@ function init(msg){
         record = {
             "discordId" : guildMemberArray[index].id,
             "nickname" : guildMemberArray[index].nickname,
-            "user" : guildMemberArray[index].user
+            "user" : guildMemberArray[index].user.username
         }
         records.push(record);
     }

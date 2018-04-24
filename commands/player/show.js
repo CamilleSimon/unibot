@@ -20,10 +20,11 @@ function onePlayer(name, channel){
 	    		channel.say("Error : no user named "+ name + " recorded in the schedule.");
 	    	else{
 				for(attr in result){
-					if (attr == "discord-user")
+					if (attr == "discord-user"){
 						msg += "**" + result[attr] + "**```";
-						msg += "Game       | Server     | Character\n";
-						msg += "-----------+------------+--------------------------\n";
+						msg += "Game      | Server     | Character\n";
+						msg += "----------+------------+--------------------------\n";
+					}
 					if (attr == "characters"){
 						characters = result[attr];
 						for(charIndex in characters){
@@ -32,7 +33,7 @@ function onePlayer(name, channel){
 							for(field in character){
 								console.log(field);
 								msg += character[field];
-								for(var i = character[field].length; i < 12; i++){
+								for(var i = character[field].length; i < 11; i++){
 									msg += " ";
 								}
 								if(field != "name")

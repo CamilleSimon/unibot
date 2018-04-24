@@ -22,8 +22,8 @@ function onePlayer(name, channel){
 				for(attr in result){
 					if (attr == "discord-user"){
 						msg += "**" + result[attr] + "**```";
-						msg += "Game      | Server    | Character\n";
-						msg += "----------+-----------+--------------------------\n";
+						msg += "Game       | Server     | Character\n";
+						msg += "-----------+------------+--------------------------\n";
 					}
 					if (attr == "characters"){
 						characters = result[attr];

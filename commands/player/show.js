@@ -11,7 +11,7 @@ function onePlayer(name, channel){
 	var msg = "";
 	var player;
 	var query = {};
-	query["discord-user"] = name;
+	query["discordId"] = name.id;
 	MongoClient.connect(url, function(err, db) {
 	  	if (err) throw err;
 	  	db.collection("players").findOne(query, function(err, result) {
@@ -19,32 +19,26 @@ function onePlayer(name, channel){
 	    	if(!result)
 	    		channel.say("Error : no user named "+ name + " recorded in the schedule.");
 	    	else{
-				for(attr in result){
-					if (attr == "discord-user"){
-						msg += "**`" + result[attr] + "`**```";
-						msg += "Game       | Server     | Character\n";
-						msg += "-----------+------------+--------------------------\n";
-					}
-					if (attr == "characters"){
-						characters = result[attr];
-						for(charIndex in characters){
-							character = characters[charIndex];
-							//console.log(server.members.get("id", name))
-							for(field in character){
-								var temp = util.capsFirstLetter(character[field]);
-								if (temp.length > 10)
-									msg += temp.substring(0,11);
-								else
-									msg += temp;
-								for(var i = character[field].length; i < 10; i++){
-									msg += " ";
-								}
-								if(field != "name")
-									msg += " | ";
-								else
-									msg += "\n";
-							}
+				msg += "**" + util.capsFirstLetter(result["user"]) + "** *" + util.capsFirstLetter(result["nickname"]) + "*```";
+				msg += "Game       | Server     | Character\n";
+				msg += "-----------+------------+--------------------------\n";
+				characters = result["characters"];
+				for(charIndex in characters){
+					character = characters[charIndex];
+					//console.log(server.members.get("id", name))
+					for(field in character){
+						var temp = util.capsFirstLetter(character[field]);
+						if (temp.length > 10)
+							msg += temp.substring(0,11);
+						else
+							msg += temp;
+						for(var i = character[field].length; i < 10; i++){
+							msg += " ";
 						}
+						if(field != "name")
+							msg += " | ";
+						else
+							msg += "\n";
 					}
 				}
 		    	channel.say(msg + "```");

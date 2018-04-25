@@ -24,7 +24,7 @@ function init(msg){
         if (err) throw err;
         db.collection("players").insertMany(records, {safe:true}, function(err,doc) {
             if (err) throw err;
-            msg.say("Success : " + doc.insertCount + " players added !s");
+            msg.say("Success : " + doc.insertCount + " players added !");
             db.close();
         });
     });

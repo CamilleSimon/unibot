@@ -68,10 +68,11 @@ function all(channel){
 					//console.log(server.members.get("id", name))
 					for(field in character){
 						var temp = util.capsFirstLetter(character[field]);
-						if (temp.length > 10)
-							msg += temp.substring(0,11);
-						else
-							msg += temp;
+						if(field != "name")
+							if (temp.length > 10)
+								msg += temp.substring(0,11);
+							else
+								msg += temp;
 						for(var i = character[field].length; i < 10; i++){
 							msg += " ";
 						}

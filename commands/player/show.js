@@ -59,31 +59,29 @@ function all(channel){
 			if (err) throw err;
 	    	for(var i in result){
 	    		player = result[i];
-				for(attr in player){
-					msg += "**" + util.capsFirstLetter(result["user"]) + "** *" + util.capsFirstLetter(result["nickname"]) + "*```";
-					msg += "Game       | Server     | Character\n";
-					msg += "-----------+------------+--------------------------\n";
-					characters = result["characters"];
-					for(charIndex in characters){
-						character = characters[charIndex];
-						//console.log(server.members.get("id", name))
-						for(field in character){
-							var temp = util.capsFirstLetter(character[field]);
-							if (temp.length > 10)
-								msg += temp.substring(0,11);
-							else
-								msg += temp;
-							for(var i = character[field].length; i < 10; i++){
-								msg += " ";
-							}
-							if(field != "name")
-								msg += " | ";
-							else
-								msg += "\n";
+				msg += "**" + util.capsFirstLetter(player["user"]) + "** *" + util.capsFirstLetter(player["nickname"]) + "*```";
+				msg += "Game       | Server     | Character\n";
+				msg += "-----------+------------+--------------------------\n";
+				characters = player["characters"];
+				for(charIndex in characters){
+					character = characters[charIndex];
+					//console.log(server.members.get("id", name))
+					for(field in character){
+						var temp = util.capsFirstLetter(character[field]);
+						if (temp.length > 10)
+							msg += temp.substring(0,11);
+						else
+							msg += temp;
+						for(var i = character[field].length; i < 10; i++){
+							msg += " ";
 						}
+						if(field != "name")
+							msg += " | ";
+						else
+							msg += "\n";
 					}
-					msg += "```";
 				}
+				msg += "```";
 	    	}
 	    	channel.say(msg);
 	    	db.close();

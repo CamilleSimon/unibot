@@ -27,17 +27,20 @@ function onePlayer(name, channel){
 					character = characters[charIndex];
 					for(field in character){
 						var temp = util.capsFirstLetter(character[field]);
-						if (temp.length > 10)
-							msg += temp.substring(0,11);
-						else
-							msg += temp;
-						for(var i = character[field].length; i < 10; i++){
-							msg += " ";
-						}
-						if(field != "name")
+						if(field != "name"){
+							if (temp.length > 10)
+								msg += temp.substring(0,11);
+							else
+								msg += temp;
+							for(var i = character[field].length; i < 10; i++){
+								msg += " ";
+							}
 							msg += " | ";
-						else
+						}	
+						else{
+							msg += temp;
 							msg += "\n";
+						}
 					}
 				}
 		    	channel.say(msg + "```");

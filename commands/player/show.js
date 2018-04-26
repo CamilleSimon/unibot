@@ -11,7 +11,7 @@ function onePlayer(name, channel){
 	var msg = "";
 	var player;
 	var query = {};
-	query["discordId"] = name.substring(3,name.length-1);
+	query["discordId"] = util.snowflakeToID(name);
 	console.log(query);
 	MongoClient.connect(url, function(err, db) {
 	  	if (err) throw err;

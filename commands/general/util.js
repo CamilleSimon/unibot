@@ -108,5 +108,18 @@ module.exports = {
 			prevChar = msg.substring(i,i+1);
 		}
 		return res;
+	},
+
+	snowflakeToID : function(snowflake){
+		var i = 0;
+		var j = 1;
+		var end = snowflake.length - 1;
+		var currentNum = snowflake.substring(i,j);
+		while(currentNum == "<" || currentNum == "@" || currentNum == "!"){
+			i = j;
+			j = j + 1;
+			currentNum = snowflake.substring(i,j);
+		}
+		return snowflake.substring(i,end);
 	}
 };

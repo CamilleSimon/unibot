@@ -12,6 +12,7 @@ function onePlayer(name, channel){
 	var player;
 	var query = {};
 	query["discordId"] = name.substring(2,20);
+	console.log(query);
 	MongoClient.connect(url, function(err, db) {
 	  	if (err) throw err;
 	  	db.collection("players").findOne(query, function(err, result) {

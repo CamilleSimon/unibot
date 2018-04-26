@@ -11,7 +11,7 @@ function onePlayer(name, channel){
 	var msg = "";
 	var player;
 	var query = {};
-	query["discordId"] = name.substring(3,20);
+	query["discordId"] = name.substring(3,name.length-1);
 	console.log(query);
 	MongoClient.connect(url, function(err, db) {
 	  	if (err) throw err;

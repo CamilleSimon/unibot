@@ -61,28 +61,29 @@ function all(channel){
 	    		player = result[i];
 				for(attr in player){
 					msg += "**" + util.capsFirstLetter(result["user"]) + "** *" + util.capsFirstLetter(result["nickname"]) + "*```";
-				msg += "Game       | Server     | Character\n";
-				msg += "-----------+------------+--------------------------\n";
-				characters = result["characters"];
-				for(charIndex in characters){
-					character = characters[charIndex];
-					//console.log(server.members.get("id", name))
-					for(field in character){
-						var temp = util.capsFirstLetter(character[field]);
-						if (temp.length > 10)
-							msg += temp.substring(0,11);
-						else
-							msg += temp;
-						for(var i = character[field].length; i < 10; i++){
-							msg += " ";
+					msg += "Game       | Server     | Character\n";
+					msg += "-----------+------------+--------------------------\n";
+					characters = result["characters"];
+					for(charIndex in characters){
+						character = characters[charIndex];
+						//console.log(server.members.get("id", name))
+						for(field in character){
+							var temp = util.capsFirstLetter(character[field]);
+							if (temp.length > 10)
+								msg += temp.substring(0,11);
+							else
+								msg += temp;
+							for(var i = character[field].length; i < 10; i++){
+								msg += " ";
+							}
+							if(field != "name")
+								msg += " | ";
+							else
+								msg += "\n";
 						}
-						if(field != "name")
-							msg += " | ";
-						else
-							msg += "\n";
 					}
+					msg += "```";
 				}
-				msg += "```";
 	    	}
 	    	channel.say(msg);
 	    	db.close();

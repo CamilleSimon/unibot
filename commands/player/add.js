@@ -11,7 +11,7 @@ function add(discorduser, game, server, name, channel, user){
     //query init
     var query = {};
     //the query has to find an discord-user
-    query["discordId"] = channel.mentions.users.first().id;
+    query["discordId"] = util.snowflakeToID(discorduser);
     //the new character to add
     var character = {
         "game" : game,

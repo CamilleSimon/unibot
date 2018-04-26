@@ -97,6 +97,8 @@ module.exports = {
 	},
 
 	capsFirstLetter : function(msg){
+		if(!msg)
+			return null;
 		var res = "";
 		res += msg.substring(0,1).toUpperCase();
 		var prevChar = msg.substring(0,1);

@@ -31,15 +31,15 @@ module.exports = class SayCommand extends Command {
             group: 'player',
             memberName: 'playerset',
             description: '\n Set a player in the database \n Modifie un joueur dans la base de données',
-            examples: ['playerset @user server uldman uldaman', 'playeradd @user game fxiv ffxiv'],
+            examples: ['playerset @user server uldman uldaman', 'playerset @user character shyakan shaykan'],
             args: [
                 {
                     key: 'discorduser',
-                    prompt: ' to which discord user do you want to modify a character ? \n De quelle utilisateur discord voulez vous modifier le personnage ?',
+                    prompt: ' de quelle utilisateur discord souhaitez vous modifier les informations ?',
                     type: 'string',
                     validate: discoruser =>{
                         if(!discoruser)
-                            return ' invalide discord user. To which discord user do you want to modify a character ? \n De quelle utilisateur discord voulez vous modifier le personnage ?';
+                            return ' argument invalide. De quelle utilisateur discord souahitez vous modifier les informations ?';
                         return true;
                     }
                 },{

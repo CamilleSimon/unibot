@@ -66,11 +66,12 @@ module.exports = class SayCommand extends Command {
                     } 
                 },{
                     key: 'server',
-                    prompt: ' sur quelle serveur jouez-vous ?',//on which server do you play ? \n S
+                    prompt: ' sur quelle serveur jouez-vous ? \n `uldaman`, `derk\'thar`',//on which server do you play ? \n S
                     type: 'string',
                     validate: server => {
-                        if(!server)
-                            ' Argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ? 
+                        server = server.toLowerCase();
+                        if(server != "uldaman" || server != "drek'thar")
+                            ' argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ? 
                         return true;
                     }
                 },{

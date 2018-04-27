@@ -14,7 +14,6 @@ function init(msg){
             console.log(doc.result.n + " document(s) deleted");
             db.close();
         });
-    });
 
     var guildMemberArray = msg.guild.members.array();
     var records = new Array();
@@ -32,7 +31,7 @@ function init(msg){
             if (err) throw err;
             msg.say("Success : " + doc.result.insertCount + " players added !");
             db.close();
-    });
+        });
     return true;
 }
 

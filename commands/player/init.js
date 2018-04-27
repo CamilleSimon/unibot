@@ -29,7 +29,7 @@ function init(msg){
 
         db.collection("players").insertMany(records, {safe:true}, function(err,doc) {
             if (err) throw err;
-            console.log("Number of documents inserted: " + result.insertCount);
+            console.log("Number of documents inserted: " + doc.insertCount);
             db.close();
         });
     return true;

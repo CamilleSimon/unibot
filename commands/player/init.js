@@ -15,17 +15,17 @@ function init(msg){
             db.close();
         });
 
-    var guildMemberArray = msg.guild.members.array();
-    var records = new Array();
-    var record;
-    for(index in guildMemberArray){
-        record = {
-            "discordId" : guildMemberArray[index].id,
-            "nickname" : guildMemberArray[index].nickname,
-            "user" : guildMemberArray[index].user.username
+        var guildMemberArray = msg.guild.members.array();
+        var records = new Array();
+        var record;
+        for(index in guildMemberArray){
+            record = {
+                "discordId" : guildMemberArray[index].id,
+                "nickname" : guildMemberArray[index].nickname,
+                "user" : guildMemberArray[index].user.username
+            }
+            records.push(record);
         }
-        records.push(record);
-    }
 
         db.collection("players").insertMany(records, {safe:true}, function(err,doc) {
             if (err) throw err;
@@ -33,6 +33,7 @@ function init(msg){
             db.close();
         });
     return true;
+    });
 }
 
 //Analyze chat message part

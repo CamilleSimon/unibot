@@ -9,7 +9,6 @@ var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 //Show the schedule of one player
 function onePlayer(name, channel){
 	var msg = "";
-	var player;
 	var query = {};
 	query["discordId"] = util.snowflakeToID(name)
 	MongoClient.connect(url, function(err, db) {

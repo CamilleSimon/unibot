@@ -44,6 +44,10 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg){
-		init(msg);
+        if(msg.author.lastMessage.member.id == "71312098952486912")
+            init(msg);
+        else{
+            msg.say("You don't have the permission to use this command. Jerk.");
+        }
 	}
 }

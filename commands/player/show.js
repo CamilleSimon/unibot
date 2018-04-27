@@ -58,6 +58,7 @@ function all(channel){
 	  	db.collection("players").find({}).toArray(function(err, result) {
 			if (err) throw err;
 	    	for(var i in result){
+				msg = "";
 	    		player = result[i];
 				msg += "**" + util.capsFirstLetter(player["user"]) + "** *" + util.capsFirstLetter(player["nickname"]) + "*```";
 				msg += "Game       | Server     | Character\n";
@@ -84,8 +85,8 @@ function all(channel){
 					}
 				}
 				msg += "```";
+				channel.say(msg);
 	    	}
-	    	channel.say(msg);
 	    	db.close();
 	  	});
 	});

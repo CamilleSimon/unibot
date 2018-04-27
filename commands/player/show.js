@@ -25,7 +25,10 @@ function onePlayer(name, channel){
 				for(charIndex in characters){
 					character = characters[charIndex];
 					for(field in character){
-						var temp = util.capsFirstLetter(character[field]);
+						if(field != "ilvl")
+							var temp = util.capsFirstLetter(character[field]);
+						else
+							var temp = character[field];
 						if(field != "name")
 							var num = 10;
 						else

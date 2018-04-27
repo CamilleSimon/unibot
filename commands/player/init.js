@@ -28,13 +28,10 @@ function init(msg){
         records.push(record);
     }
 
-    MongoClient.connect(url, function(err,db){
-        if (err) throw err;
         db.collection("players").insertMany(records, {safe:true}, function(err,doc) {
             if (err) throw err;
-            msg.say("Success : " + doc.insertCount + " players added !");
+            msg.say("Success : " + doc.result.insertCount + " players added !");
             db.close();
-        });
     });
     return true;
 }

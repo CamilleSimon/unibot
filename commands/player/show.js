@@ -37,7 +37,7 @@ function onePlayer(name, channel){
 						for(var i = character[field].length; i < num; i++){
 							msg += " ";
 						}
-						if(filed != name)
+						if(field != name)
 							msg += " | ";
 						else{
 							msg += "\n";

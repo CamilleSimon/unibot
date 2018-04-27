@@ -7,6 +7,15 @@ var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 function init(msg){
+    MongoClient.connect(url, function(err,db){
+        if (err) throw err;
+        db.collection("players").deleteMany({}, {safe:true}, function(err,doc) {
+            if(err) throw err;
+            console.log(doc.result.n + " document(s) deleted");
+            db.close();
+        });
+    });
+
     var guildMemberArray = msg.guild.members.array();
     var records = new Array();
     var record;
@@ -18,7 +27,6 @@ function init(msg){
         }
         records.push(record);
     }
-    console.log(records);
 
     MongoClient.connect(url, function(err,db){
         if (err) throw err;

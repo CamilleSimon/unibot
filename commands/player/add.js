@@ -45,16 +45,16 @@ module.exports = class SayCommand extends Command {
             args: [
                 {
                     key: 'discorduser',
-                    prompt: ' to which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?',
+                    prompt: ' à quelle utilisateur discord voulez vous ajouter ce personnage ?',//to which discord user do you want to add this character ? \n 
                     type: 'string',
                     validate: discoruser =>{
                         if(!discoruser)
-                            return ' invalide discord user. To which discord user do you want to add this character ? \n A quelle utilisateur discord voulez vous ajouter ce personnage ?';
+                            return ' argument invalide. A quelle utilisateur discord voulez vous ajouter ce personnage ?';//invalide discord user. To which discord user do you want to add this character ? \n
                         return true;
                     }
                 },{
                     key: 'game',
-                    prompt: ' witch game do you play ? \n A quelle jeu jouez-vous ? \n `wow`, `ffxiv`',
+                    prompt: ' à quelle jeu jouez-vous ? \n `wow`, `ffxiv`',//witch game do you play ? \n A
                     type: 'string',
                     validate: game => {
                         game = game.toLowerCase();
@@ -62,24 +62,24 @@ module.exports = class SayCommand extends Command {
                             game == "ffxiv"
                         ) 
                             return true;
-                        return 'invalid game. Witch game do you play ? \n A quelle jeu jouez-vous ? \n `wow`, `ffxiv`';
+                        return ' argument invalide. A quelle jeu jouez-vous ? \n `wow`, `ffxiv`';//invalid game. Witch game do you play ? \n A
                     } 
                 },{
                     key: 'server',
-                    prompt: ' on which server do you play ? \n Sur quelle serveur jouez-vous ?',
+                    prompt: ' sur quelle serveur jouez-vous ?',//on which server do you play ? \n S
                     type: 'string',
                     validate: server => {
                         if(!server)
-                            ' invalide server. On which server do you play ? \n Sur quelle serveur jouez-vous ?';
+                            ' Argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ? 
                         return true;
                     }
                 },{
                     key: 'name',
-                    prompt: ' what is the name of your character ? \n Quelle est le nom de votre personnage ?',
+                    prompt: ' quelle est le nom de votre personnage ?',//what is the name of your character ? \n Q
                     type: 'string',
                     validate: name => {
                         if(!name)
-                            return ' invalide name. What is the name of your character ? \n Quelle est le nom de votre personnage ?';
+                            return ' argument invalide. Quelle est le nom de votre personnage ?';
                         return true;
                     }
                 }

@@ -110,7 +110,7 @@ module.exports = class SayCommand extends Command {
     }
 
     run(msg, { discorduser }){
-        console.log("Command : playershow, author : " + msg.author.lastMessage.member.nickname + ", arguments : "+ discorduser);
+        console.log("Command : playershow, author : " + msg.author.username + ", arguments : "+ discorduser);
     	if(discorduser == "all")
 			all(msg);
 		else

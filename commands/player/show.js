@@ -19,25 +19,27 @@ function onePlayer(name, channel){
 	    		channel.say("Error : no user named "+ name + " recorded in the schedule.");
 	    	else{
 				msg += "**" + util.capsFirstLetter(result["user"]) + "** *" + util.capsFirstLetter(result["nickname"]) + "*```";
-				msg += "Game       | Server     | Character\n";
-				msg += "-----------+------------+--------------------------\n";
+				msg += "Game       | Server     | Character            | Spé        | ilvl       \n";
+				msg += "-----------+------------+----------------------+------------|------------\n";
 				characters = result["characters"];
 				for(charIndex in characters){
 					character = characters[charIndex];
 					for(field in character){
 						var temp = util.capsFirstLetter(character[field]);
-						if(field != "name"){
-							if (temp.length > 10)
-								msg += temp.substring(0,11);
-							else
-								msg += temp;
-							for(var i = character[field].length; i < 10; i++){
-								msg += " ";
-							}
-							msg += " | ";
-						}	
-						else{
+						if(field != "name")
+							var num = 10;
+						else
+							var num = 20;
+						if (temp.length > num)
+							msg += temp.substring(0,11);
+						else
 							msg += temp;
+						for(var i = character[field].length; i < num; i++){
+							msg += " ";
+						}
+						if(filed != name)
+							msg += " | ";
+						else{
 							msg += "\n";
 						}
 					}

@@ -6,7 +6,7 @@ var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
-function add(discorduser, game, server, name, channel, user){
+function add(discorduser, game, server, name, spe, ilvl, channel, user){
     //var id = user.id;
     //query init
     var query = {};
@@ -16,7 +16,9 @@ function add(discorduser, game, server, name, channel, user){
     var character = {
         "game" : game,
         "server" : server,
-        "name" : name
+        "name" : name,
+        "spe" : spe,
+        "ilvl" : ilvl
     };
     //connection to the DB
     MongoClient.connect(url, function(err,db){
@@ -49,30 +51,29 @@ module.exports = class SayCommand extends Command {
                     type: 'string',
                     validate: discoruser =>{
                         if(!discoruser)
-                            return ' argument invalide. A quelle utilisateur discord voulez vous ajouter ce personnage ?';//invalide discord user. To which discord user do you want to add this character ? \n
+                            return false;//' argument invalide. A quelle utilisateur discord voulez vous ajouter ce personnage ?';//invalide discord user. To which discord user do you want to add this character ? \n
                         return true;
                     }
                 },{
                     key: 'game',
-                    prompt: ' à quelle jeu jouez-vous ? \n `wow`, `ffxiv`',//witch game do you play ? \n A
+                    prompt: ' à quelle jeu jouez-vous ? `wow`, `ffxiv`',//witch game do you play ? \n A
                     type: 'string',
                     validate: game => {
                         game = game.toLowerCase();
-                        if (game == "wow" || 
-                            game == "ffxiv"
+                        if (game == "wow" || game == "ffxiv"
                         ) 
                             return true;
-                        return ' argument invalide. A quelle jeu jouez-vous ? \n `wow`, `ffxiv`';//invalid game. Witch game do you play ? \n A
+                        return false;//' argument invalide. A quelle jeu jouez-vous ? \n `wow`, `ffxiv`';//invalid game. Witch game do you play ? \n A
                     } 
                 },{
                     key: 'server',
-                    prompt: ' sur quelle serveur jouez-vous ? \n `uldaman`, `derk\'thar`',//on which server do you play ? \n S
+                    prompt: ' sur quelle serveur jouez-vous ? `uldaman`, `derk\'thar`',//on which server do you play ? \n S
                     type: 'string',
                     validate: server => {
                         server = server.toLowerCase();
-                        if(server != "uldaman" || server != "drek'thar")
-                            ' argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ? 
-                        return true;
+                        if(server == "uldaman" || server == "drek'thar")
+                            return true;//' argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ? 
+                        return false;
                     }
                 },{
                     key: 'name',
@@ -80,7 +81,26 @@ module.exports = class SayCommand extends Command {
                     type: 'string',
                     validate: name => {
                         if(!name)
-                            return ' argument invalide. Quelle est le nom de votre personnage ?';
+                            return false;//' argument invalide. Quelle est le nom de votre personnage ?';
+                        return true;
+                    }
+                },{
+                    key: 'spe',
+                    prompt: ' quelle est votre spécialité ? `tank`, `heal` ou `dps`',//what is the name of your character ? \n Q
+                    type: 'string',
+                    validate: spe => {
+                        spe = spe.toLowerCase();
+                        if(spe == "tank" || spe == "heal" || spe == "dps" )
+                            return true;//' argument invalide. Quelle est le nom de votre personnage ?';
+                        return false;
+                    }
+                },{
+                    key: 'ilvl',
+                    prompt: ' quelle est le votre ilvl ?',//what is the name of your character ? \n Q
+                    type: 'integer',
+                    validate: ilvl => {
+                        if(!ilvl)
+                            return false;//' argument invalide. Quelle est le nom de votre personnage ?';
                         return true;
                     }
                 }
@@ -88,13 +108,13 @@ module.exports = class SayCommand extends Command {
         });
     }
 
-	run(msg, {discorduser, game, server, name }){
+	run(msg, {discorduser, game, server, name, spe, ilvl }){
         var user = msg.mentions.users.first();
         game = game.toLowerCase();
         server = server.toLowerCase();
         name = name.toLowerCase();
-		console.log("Command : playeradd, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + game + ", " + server + ", " + name);
-        add(discorduser, game, server, name, msg, user);
+		console.log("Command : playeradd, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + game + ", " + server + ", " + name + "," + spe + "," + ilvl);
+        add(discorduser, game, server, name, spe, ilvl, msg, user);
         
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")

@@ -44,6 +44,7 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg){
+        console.log(msg.author.lastMessage.member.id);
         if(msg.author.lastMessage.member.id == "71312098952486912")
             init(msg);
         else{

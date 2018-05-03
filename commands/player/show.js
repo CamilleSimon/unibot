@@ -40,7 +40,7 @@ function onePlayer(name, channel){
 						for(var i = character[field].length; i < num; i++){
 							msg += " ";
 						}
-						if(field != name)
+						if(field != "ilvl")
 							msg += " | ";
 						else{
 							msg += "\n";

@@ -12,7 +12,7 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     run(msg) {
-        fs.readFile('commands/general/draw', 'utf8', function (err,data) {
+        fs.readFile('commands/general/draw.txt', 'utf8', function (err,data) {
             if (err) {
                 return console.log(err);
             }

@@ -102,20 +102,14 @@ function all(game, channel){
 	var player;
 	MongoClient.connect(url, function(err, db) {
 		  if (err) throw err;
-		  query["game"] = game;
-	  	db.collection("players").find(query).toArray(function(err, result) {
+	  	db.collection("players").find({
+			  character: {game : {$eq : "wow"}}
+		  }).toArray(function(err, result) {
+			if (err) throw err;
+			console.log(result);
 		});
 	});
 }
-db.course.find( { }, 
-	{ students : 
-		{ $elemMatch : 
-		   { id : ObjectId("51780f796ec4051a536015d0"), 
-			 name : "Sam" 
-		   } 
-		} 
-	} 
-);
 
 module.exports = class SayCommand extends Command {
     constructor(client) {

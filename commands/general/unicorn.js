@@ -12,12 +12,12 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     run(msg) {
-        if(fs.existsSync("draw.txt")){
-            var text = fs.readFileSync("draw.txt");
+        if(fs.existsSync("/commands/general/draw.txt")){
+            var text = fs.readFileSync("/commands/general/draw.txt");
             return msg.say("```"+text+"```");
         }
         else{
-            return msg.say("`drax.txt` doen't exist.");
+            return msg.say("`/commands/general/draw.txt` doesn't exist.");
         }
     }
 }

@@ -9,6 +9,7 @@ var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
 var wowServers = {};
 var ffServers = new Array("lobby", "behemoth", "brynhildr", "diabolos", "excalibur", "exodus", "famfrit", "hyperion", "lamia", "leviathan", "malboro", "ultros", "adamantoise","balmung","cactuar","coeurl","faerie","gilgamesh","goblin","jenova","mateus","midgardsormr","sargatanas","siren","zalera","aegis","atomos","carbuncle","garuda","gungnir","kujata","ramuh","tonberry","typhon","unicorn","alexander","bahamut","durandal","fenrir","ifrit","ridill","tiamat","ultima","valefor","yojimbo","zeromus","cerberus","lich","louisoix","moogle","odin","omega","phoenix","ragnarok","shiva","zodiark","anima","asura","belias","chocobo","hades","ixion","mandragora","masamune","pandaemonium","shinryu","titan");
+var g;
 
 function add(discorduser, game, server, name, spe, ilvl, channel, user){
     //var id = user.id;
@@ -64,8 +65,10 @@ module.exports = class SayCommand extends Command {
                     type: 'string',
                     validate: game => {
                         game = game.toLowerCase();
-                        if (game == "wow" || game == "ffxiv") 
+                        if (game == "wow" || game == "ffxiv"){
+                            g = game;
                             return true;
+                        }
                         return false;//' argument invalide. A quelle jeu jouez-vous ? \n `wow`, `ffxiv`';//invalid game. Witch game do you play ? \n A
                     } 
                 },{
@@ -74,7 +77,7 @@ module.exports = class SayCommand extends Command {
                     type: 'string',
                     validate: server => {
                         server = server.toLowerCase();
-                        console.log(args);
+                        console.log(g);
                         //if(game=="ffxiv")
                             if(ffServer.indexOf(server)!=-1)
                                 return true;//' argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ?

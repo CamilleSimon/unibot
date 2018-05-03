@@ -64,8 +64,7 @@ module.exports = class SayCommand extends Command {
                     type: 'string',
                     validate: game => {
                         game = game.toLowerCase();
-                        if (game == "wow" || game == "ffxiv"
-                        ) 
+                        if (game == "wow" || game == "ffxiv") 
                             return true;
                         return false;//' argument invalide. A quelle jeu jouez-vous ? \n `wow`, `ffxiv`';//invalid game. Witch game do you play ? \n A
                     } 
@@ -75,7 +74,8 @@ module.exports = class SayCommand extends Command {
                     type: 'string',
                     validate: server => {
                         server = server.toLowerCase();
-                        if(game=="ffxiv")
+                        console.log(args);
+                        //if(game=="ffxiv")
                             if(ffServer.indexOf(server)!=-1)
                                 return true;//' argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ?
                             else

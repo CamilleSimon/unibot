@@ -12,7 +12,7 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     run(msg) {
-        var text = fs.readFileSync("draw");
+        var text = fs.readFileSync("draw.txt");
         return msg.say("```"+text+"```");
     }
 }

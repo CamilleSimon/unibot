@@ -12,13 +12,12 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     run(msg) {
-        if(fs.existsSync("/commands/general/draw.txt")){
-            var text = fs.readFileSync("/commands/general/draw.txt");
-            return msg.say("```"+text+"```");
-        }
-        else{
-            return msg.say("`/commands/general/draw.txt` doesn't exist.");
-        }
+        fs.readFile('index.js', 'utf8', function (err,data) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log(data);
+        });
     }
 }
 //                                                    /

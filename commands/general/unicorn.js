@@ -12,8 +12,13 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     run(msg) {
-        var text = fs.readFileSync("draw.txt");
-        return msg.say("```"+text+"```");
+        if(fs.existsSync("draw.txt")){
+            var text = fs.readFileSync("draw.txt");
+            return msg.say("```"+text+"```");
+        }
+        else{
+            return msg.say("`drax.txt` doen't exist.");
+        }
     }
 }
 //                                                    /

@@ -16,7 +16,7 @@ module.exports = class ReplyCommand extends Command {
             if (err) {
                 return console.log(err);
             }
-            console.log(data);
+            msg.say(data);
         });
     }
 }

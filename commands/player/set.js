@@ -44,7 +44,7 @@ module.exports = class SayCommand extends Command {
                     }
                 },{
                     key: 'type',
-                    prompt: ' witch type of info do you want to modify ? \n Quelle info voulez vous modifier ? \n `server`, `name`',
+                    prompt: ' quelle info voulez vous modifier ? \n `server`, `name`',
                     type: 'string',
                     validate: type => {
                         type = type.toLowerCase();

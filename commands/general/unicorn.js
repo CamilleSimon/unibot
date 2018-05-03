@@ -12,7 +12,7 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     run(msg) {
-        var text = fs.readFileSync("unicorn.txt", "UTF-8");
+        var text = fs.readFileSync("draw", "UTF-8");
         return msg.say("```"+text+"```");
     }
 }

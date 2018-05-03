@@ -14,7 +14,7 @@ module.exports = class ReplyCommand extends Command {
     }
     run(msg) {
         var text = fs.readFileSync("unicorn.txt", "UTF-8");
-        return msg.say(text);
+        return msg.say("```"+text+"```");
     }
 }
 //                                                    /

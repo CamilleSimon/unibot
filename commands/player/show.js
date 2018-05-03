@@ -97,6 +97,26 @@ function all(channel){
 	});
 }
 
+function all(game, channel){
+	var msg = "";
+	var player;
+	MongoClient.connect(url, function(err, db) {
+		  if (err) throw err;
+		  query["game"] = game;
+	  	db.collection("players").find(query).toArray(function(err, result) {
+		});
+	});
+}
+db.course.find( { }, 
+	{ students : 
+		{ $elemMatch : 
+		   { id : ObjectId("51780f796ec4051a536015d0"), 
+			 name : "Sam" 
+		   } 
+		} 
+	} 
+);
+
 module.exports = class SayCommand extends Command {
     constructor(client) {
         super(client, {
@@ -107,19 +127,25 @@ module.exports = class SayCommand extends Command {
             examples: ['scheduleshow @user'],
             args: [
 	            {
-	                key: 'discorduser',
-	                prompt: ' de quel joueur voulez-vous voir les personnages ?',//whom characters do you want to see ? \n 
+	                key: 'filter',
+	                prompt: ' entrez le nom d\' membre du serveur `@Shaykan` pour voir les personnages enregistrés par un joueur ou un jeu `wow` pour voir tous les personnages enregistrés pour ce jeu',//,//whom characters do you want to see ? \n 
 	                type: 'string',
 	            }
         	]
         });
     }
 
-    run(msg, { discorduser }){
-        console.log("Command : playershow, author : " + msg.author.username + ", arguments : "+ discorduser);
-    	if(discorduser == "all")
+    run(msg, { filter }){
+        console.log("Command : playershow, author : " + msg.author.username + ", arguments : "+ filter);
+    	if(filter == "all")
 			all(msg);
 		else
-			onePlayer(discorduser, msg);
+			if(filter.substring(0,2)=="<@")
+				onePlayer(filter, msg);
+			else
+				if(filter == "wow" || filter=="ffxiv")
+					gamePlayers(filter, msg);
+				else
+					msg.say("Invalid argument.");
 	}
 }

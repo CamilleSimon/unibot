@@ -16,7 +16,7 @@ module.exports = class ReplyCommand extends Command {
             if (err) {
                 return console.log(err);
             }
-            msg.say(data);
+            msg.say("```"+data+"```");
         });
     }
 }

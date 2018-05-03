@@ -78,11 +78,8 @@ module.exports = class SayCommand extends Command {
                     validate: server => {
                         server = server.toLowerCase();
                         console.log(g);
-                        //if(game=="ffxiv")
-                            if(ffServer.indexOf(server)!=-1)
-                                return true;//' argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ?
-                            else
-                                return false;
+                        if(g=="ffxiv" && ffServers.indexOf(server)!=-1)
+                            return true;//' argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ?
                         return false;
                     }
                 },{

@@ -101,10 +101,10 @@ function all(game, channel){
 	var msg = "";
 	var player;
 	MongoClient.connect(url, function(err, db) {
-		  if (err) throw err;
+		if (err) throw err;
 	  	db.collection("players").find({
-			  character: {game : {$eq : "wow"}}
-		  }).toArray(function(err, result) {
+			character: {game : {$eq : "$game"}}
+		}).toArray(function(err, result) {
 			if (err) throw err;
 			console.log(result);
 		});

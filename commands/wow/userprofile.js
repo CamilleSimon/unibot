@@ -9,6 +9,7 @@ var jsonConfig = JSON.parse(configs);
 
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
+console.log(url);
 var wowapi = jsonConfig.wowapi;
 
 var content = fs.readFileSync("commands/wow/color.json");

@@ -29,7 +29,7 @@ function profile(server, name, channel){
                 "url": "https://render-eu.worldofwarcraft.com/character/" + character.thumbnail
             },
             "author": {
-                "name": character.name + " - " + character.realm,
+                "name": character.name,
                 "url": "https://worldofwarcraft.com/fr-fr/character/"  + character.realm  +"/" + character.name,
                 "icon_url": "https://worldofwarcraft.akamaized.net/static/components/Logo/Logo-horde.png"
             }

@@ -1,7 +1,6 @@
 const { Command } = require('discord.js-commando');
 const fs = require("fs");
 const util = require('../util');
-const utile = require('./utile');
 
 var request = require("request");
 var configs = fs.readFileSync("config.json");

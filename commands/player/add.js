@@ -81,7 +81,7 @@ module.exports = class SayCommand extends Command {
                         s = server;
                         server = server.toLowerCase();
                         var r = {origin: 'eu', realm: ''};
-                        r[realm] = server;
+                        r['realm'] = server;
                         bnet.wow.realmStatus(r , function(error, response, body) {
                             if(error)
                                 return false;

@@ -24,7 +24,7 @@ function profile(server, name, channel){
     r['name'] = name;
     bnet.wow.character.aggregate(r, function(error, response, body) {
         if(error) throw error;
-        if(response){
+        if(response && response!="undefined"){
             character = response;
             var spe;
             switch(character.talents[0].spec.role) {

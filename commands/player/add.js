@@ -1,17 +1,22 @@
 const { Command } = require('discord.js-commando');
 const fs = require("fs");
-const util = require('../general/util');
+const util = require('../util');
+const utile = require('./utile');
 
-var MongoClient = require('mongodb').MongoClient;
+var request = require("request");
 var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
+
+var wowapi = jsonConfig.wowapi;
+var bnet = require('battlenet-api')(wowapi);
+
+var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
-var wowServers = new Array("aegwynn", "aerie peak", "agamaggan", "aggra", "aggramar", "ahn'qiraj", "al'akir", "alexstrasza", "alleria", "alonsus", "aman'thul", "ambossar", "anachronos", "anetheron", "antonidas", "anub'arak", "arak-arahm", "arathi", "arathor", "archimonde", "area 52", "argent dawn", "arthas", "arygos", "ashenvale", "aszune", "auchindoun", "azjol-nerub", "azshara", "azuregos", "azuremyst", "baelgun", "balnazzar", "blackhand", "blackmoore", "blackrock", "blackscar", "blade's edge", "bladefist", "bloodfeather", "bloodhoof", "bloodscalp", "blutkessel", "booty bay", "borean tundra", "boulderfist", "bronze dragonflight", "bronzebeard", "burning blade", "burning legion", "burning steppes", "c'thun", "chamber of aspects", "chants éternels", "cho’gall", "chromaggus", "colinas pardas", "confrérie du thorium", "conseil des ombres", "crushridgeculte de la rive noire", "daggerspine", "dalaran", "dalvengyr", "darkmoon faire", "darksorrow", "darkspear", "das konsortium", "das syndikat", "deathguard", "deathweaver", "deathwing", "deephome", "defias brotherhood", "dentarg", "der mithrilorden", "der rat von dalaran", "der abyssische rat", "destromath", "dethecus", "die aldor", "die nachtwache", "die silberne hand", "die todeskrallen", "die ewige wacht", "doomhammer", "draenor", "dragonblight", "dragonmaw", "drak'thul", "drek'thar", "dun modr", "dun morogh", "dunemaul", "durotan", "earthen ring", "echsenkessel", "eitrigg", "eldre'thalas", "elune", "emerald dream", "emeriss", "eonar", "eredar", "eversong", "executus", "exodar", "festung der stürme", "fordragon", "forscherliga", "frostmane", "frostmourne", "frostwhisper", "frostwolf", "galakrond", "garona", "garrosh", "genjuros", "ghostlands", "gilneas", "goldrinn", "gordunni", "gorgonnash", "greymane", "grim batol", "grom", "gul’dan", "hakkar", "haomarush", "hellfire", "hellscream", "howling fjord", "hyjal", "illidan", "jaedenar", "kael'thas", "karazhan", "kargath", "kazzak", "kel'thuzad", "khadgar", "khaz modan", "khaz'goroth", "kil'jaeden", "kilrogg", "kirin tor", "kor'gall", "krag'jin", "krasus", "kul tiras", "kult der verdammten", "la croisade écarlate", "la veille d'argus", "laughing skull", "les clairvoyants", "les sentinelles", "lich king", "lightbringer", "lightning's blade", "lordaeron", "los errantes", "lothar", "légion du bouclier balafré", "madmortem", "magtheridon", "mal'ganis", "malfurion", "malorne", "malygos", "mannoroth", "marécage de zangar", "mazrigos", "medivh", "minahonda", "moonglade", "mug'thol", "nagrand", "nathrezim", "naxxramas", "nazjatar", "nefarian", "nemesis", "neptulon", "nera'thor", "ner’zhul", "nethersturm", "nordrassil", "norgannon", "nozdormu", "onyxia", "outland", "perenolde", "pozzo dell'eternità", "proudmoore", "quel'thalas", "ragnaros", "rajaxx", "rashgarroth", "ravencrest", "ravenholdt", "razuvious", "rexxar", "runetotem", "sanguino", "sargeras", "saurfang", "sen'jin", "shadowsong", "shattered halls", "shattered hand", "shattrath", "shen'dralar", "silvermoon", "sinstralis", "skullcrusher", "soulflayer", "spinebreaker", "sporeggar", "steamwheedle cartel", "stormrage", "stormreaver", "stormscale", "sunstrider", "suramar", "sylvanas", "taerar", "talnivarr", "tarren mill", "teldrassil", "temple noir", "terenas", "terokkar", "terrordar", "the maelstrom", "the sha'tar", "the venture co", "theradras", "thermaplugg", "thrall", "throk'feroth", "thunderhorn", "tichondrius", "tirion", "todeswache", "trollbane", "turalyon", "twilight's hammer", "twisting nether", "tyrande", "uldaman", "ulduar", "uldum", "un'goro", "varimathras", "vashj", "vek'lor", "vek'nilash", "vol'jin", "wildhammer", "wrathbringer", "xavius", "ysera", "ysondre", "zenedar", "zirkel des cenarius", "zul'jin", "zuluhed");
-var ffServers = new Array("lobby", "behemoth", "brynhildr", "diabolos", "excalibur", "exodus", "famfrit", "hyperion", "lamia", "leviathan", "malboro", "ultros", "adamantoise","balmung","cactuar","coeurl","faerie","gilgamesh","goblin","jenova","mateus","midgardsormr","sargatanas","siren","zalera","aegis","atomos","carbuncle","garuda","gungnir","kujata","ramuh","tonberry","typhon","unicorn","alexander","bahamut","durandal","fenrir","ifrit","ridill","tiamat","ultima","valefor","yojimbo","zeromus","cerberus","lich","louisoix","moogle","odin","omega","phoenix","ragnarok","shiva","zodiark","anima","asura","belias","chocobo","hades","ixion","mandragora","masamune","pandaemonium","shinryu","titan");
 var g;
+var s;
 
-function add(discorduser, game, server, name, spe, ilvl, channel, user){
+function add(discorduser, game, server, name, channel){
     //var id = user.id;
     //query init
     var query = {};
@@ -71,14 +76,20 @@ module.exports = class SayCommand extends Command {
                     } 
                 },{
                     key: 'server',
-                    prompt: ' sur quelle serveur jouez-vous ? `uldaman`, `derk\'thar`',//on which server do you play ? \n S
+                    prompt: ' sur quelle serveur jouez-vous ?',//on which server do you play ? \n S
                     type: 'string',
                     validate: server => {
+                        s = server;
                         server = server.toLowerCase();
-                        console.log(g);
-                        if((g=="ffxiv" && ffServers.indexOf(server)!=-1) || (g=="wow" && wowServers.indexOf(server)!=-1))
-                            return true;//' argument invalide. Sur quelle serveur jouez-vous ?';//invalide server. On which server do you play ?
-                        return false;
+                        var r = {origin: 'eu', realm: ''};
+                        r[realm] = server;
+                        bnet.wow.realmStatus(r , function(error, response, body) {
+                            if(error)
+                                return false;
+                            if(response.status!="undefined" && response.status!="nok")
+                                return true;
+                            return false;
+                        });
                     }
                 },{
                     key: 'name',
@@ -87,20 +98,33 @@ module.exports = class SayCommand extends Command {
                     validate: name => {
                         if(!name)
                             return false;//' argument invalide. Quelle est le nom de votre personnage ?';
-                        return true;
+                        else {
+                            var r = {origin: 'eu', locale : 'fr_FR', realm: '', name:'', fields: ['talents', 'items']};
+                            r['realm'] = server;
+                            r['name'] = name;
+                            bnet.wow.character.aggregate(r, function(error, response, body) {
+                                if(error)
+                                    return false;
+                                else
+                                    if(response.status!="undefined" && response.status!="nok")
+                                        return true;
+                                return false;
+                            });
+                        }
+                        return false;
                     }
                 }
             ]
         });
     }
 
-	run(msg, {discorduser, game, server, name, spe, ilvl }){
+	run(msg, {discorduser, game, server, name}){
         var user = msg.mentions.users.first();
         game = game.toLowerCase();
         server = server.toLowerCase();
         name = name.toLowerCase();
-		console.log("Command : playeradd, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + game + ", " + server + ", " + name + "," + spe + "," + ilvl);
-        add(discorduser, game, server, name, spe, ilvl, msg, user);
+		console.log("Command : playeradd, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + game + ", " + server + ", " + name);
+        add(discorduser, game, server, name, msg);
         
         //TODO Check valide characters => https://scotch.io
         //if(game == "wow")

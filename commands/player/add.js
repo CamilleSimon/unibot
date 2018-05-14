@@ -22,8 +22,6 @@ function add(discorduser, game, server, name, spe, ilvl, channel, user){
         "game" : game,
         "server" : server,
         "name" : name,
-        "spe" : spe,
-        "ilvl" : ilvl
     };
     //connection to the DB
     MongoClient.connect(url, function(err,db){
@@ -88,25 +86,6 @@ module.exports = class SayCommand extends Command {
                     type: 'string',
                     validate: name => {
                         if(!name)
-                            return false;//' argument invalide. Quelle est le nom de votre personnage ?';
-                        return true;
-                    }
-                },{
-                    key: 'spe',
-                    prompt: ' quelle est votre spécialité ? `tank`, `heal` ou `dps`',//what is the name of your character ? \n Q
-                    type: 'string',
-                    validate: spe => {
-                        spe = spe.toLowerCase();
-                        if(spe == "tank" || spe == "heal" || spe == "dps" )
-                            return true;//' argument invalide. Quelle est le nom de votre personnage ?';
-                        return false;
-                    }
-                },{
-                    key: 'ilvl',
-                    prompt: ' quelle est le votre ilvl ?',//what is the name of your character ? \n Q
-                    type: 'integer',
-                    validate: ilvl => {
-                        if(!ilvl)
                             return false;//' argument invalide. Quelle est le nom de votre personnage ?';
                         return true;
                     }

@@ -56,14 +56,15 @@ function profile(server, name, channel){
             }; 
             channel.say({ embed });
         } else {
-        const embed = {
-            "description": "**Erreur !**\nLe personnage n'a pas été trouver !\n!profile <serveur> <nom>",
-            "color": red,
-            "timestamp": new Date(),
-            "thumbnail": {
-                "url": "confuse_filly.png"
-            }
-        }; 
+            const embed = {
+                "description": "**Erreur !**\nLe personnage n'a pas été trouver !\nVérifiez que vous avez bien utilisé les bons paramètres\n!profile <serveur> <nom>",
+                "color": 0xff0000,
+                "timestamp": new Date(),
+                "thumbnail": {
+                    "url": "attachment://confuse_filly.png"
+                }
+            }; 
+        channel.say({ embed, files: [{ attachment: 'confuse_filly.png', name: 'confuse_filly.png' }] });
     }});
 }
 

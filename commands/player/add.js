@@ -80,8 +80,8 @@ module.exports = class SayCommand extends Command {
                     validate: server => {
                         s = server;
                         server = server.toLowerCase();
-                        var r = {origin: 'eu', realm: ''};
-                        r['realm'] = server;
+                        var r = {origin: 'eu', realms: ''};
+                        r['realms'] = server;
                         bnet.wow.realmStatus(r , function(error, response, body) {
                             if(error)
                                 return false;

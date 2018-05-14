@@ -8,6 +8,7 @@ var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 
 var wowapi = jsonConfig.wowapi;
+var bnet = require('battlenet-api')(wowapi);
 
 var content = fs.readFileSync("commands/wow/color.json");
 var colorTab = JSON.parse(content);
@@ -17,12 +18,30 @@ content = fs.readFileSync("commands/wow/class.json");
 var classTab = JSON.parse(content);
 
 function profile(server, name, channel){
-    request(encodeURI("https://eu.api.battle.net/wow/character/"+server+"/"+name+"?apikey=" + wowapi), function(error, response, body) {
+    var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
+    r['realm'] = server;
+    r['locale'] = 'fr_FR';
+    r['name'] = name;
+    bnet.wow.character.aggregate(r, function(error, response, body) {
         if(error) throw error;
-        console.log(body);
-        character = JSON.parse(body);
+        character = response;
+        var spe;
+        switch(character.talents[0].spec.role) {
+            case "HEALING" : 
+                spe = "<:HEALING:445549335132766208>"
+                break;
+            case "DPS" :
+                spe ="<:DPS:445554272877412352>"
+                break;
+            default :
+                spe = "<:TANKING:445554088852193280>"
+        }
         const embed = {
-            "description": "**Serveur** : " + character.realm + "\n**Niveau :** " + character.level + "\n**Classe :** " + classTab[character.class],
+            "description": "**Serveur** : " + character.realm + 
+            "\n**Niveau** : " + character.level + 
+            "\n**Classe** : " + classTab[character.class] + 
+            "\n**Niveau d'objects moyen **: " + character.items.averageItemLevel +
+            "\n**Spécialité : **" + character.talents[0].spec.name + " " + spe,
             "color": colorTab[character.class],
             "timestamp": new Date(),
             "thumbnail": {
@@ -35,7 +54,7 @@ function profile(server, name, channel){
             }
         }; 
         channel.say({ embed });
-    }); 
+    });
 }
 
 //Analyze chat message part
@@ -62,7 +81,7 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, {server, name}){
-        console.log("Command : wowuserprofile, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + server + ", " + name);
+        console.log("Command : wowprofile, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + server + ", " + name);
         profile(server, name, msg);
 	}
 }

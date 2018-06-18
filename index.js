@@ -9,7 +9,8 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['wow'],
-        ['user']
+        ['user'],
+	['general']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands()

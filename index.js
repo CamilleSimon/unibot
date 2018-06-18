@@ -10,7 +10,8 @@ client.registry
     .registerGroups([
         ['wow'],
         ['user'],
-	['general']
+	['general'],
+	['schedule']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands()

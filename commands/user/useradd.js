@@ -102,7 +102,7 @@ module.exports = class SayCommand extends Command {
                                 console.log(response);
                                 console.log(body);
                                 if(response.status!="undefined" && response.status!="nok"){
-                                    wowFct.profile(s,name,client.channels.find('id','443679878685130762'),"send");
+                                    wowFct.profile(s,name,client.channels.find('id','443679878685130762'),"say");
                                     return true;
                                 }
                                 return false;

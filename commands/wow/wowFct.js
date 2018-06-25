@@ -25,6 +25,7 @@ module.exports = {
             if(response.status!="undefined" && response.status!="nok"){
                 character = response;
                 var spe;
+                var icon;
                 switch(character.talents[0].spec.role) {
                     case "HEALING" : 
                         spe = "<:HEALING:445549335132766208>"
@@ -34,6 +35,16 @@ module.exports = {
                         break;
                     default :
                         spe = "<:TANKING:445554088852193280>"
+                }
+                switch(character.faction){
+                    case 0 :
+                        icon = "https://worldofwarcraft.akamaized.net/static/components/Logo/Logo-alliance.png"
+                        break;
+                    case 1 : 
+                        icon = "https://worldofwarcraft.akamaized.net/static/components/Logo/Logo-horde.png"
+                        break;
+                    default :
+                        icon = ""
                 }
                 const embed = {
                     "description": "**Serveur** : " + character.realm + 
@@ -49,7 +60,7 @@ module.exports = {
                     "author": {
                         "name": character.name,
                         "url": "https://worldofwarcraft.com/fr-fr/character/"  + character.realm  +"/" + character.name,
-                        "icon_url": "https://worldofwarcraft.akamaized.net/static/components/Logo/Logo-horde.png"
+                        "icon_url": icon
                     }
                 }; 
                 if(send == "send")

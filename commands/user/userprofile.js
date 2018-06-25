@@ -62,7 +62,7 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, {discorduser}){
-        console.log("Command : wowuserprofile, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + discorduser);
+        console.log("Command : userprofile, author : " + msg.author.username + ", arguments : " + discorduser);
         userprofile(discorduser, msg);
 	}
 }

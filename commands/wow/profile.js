@@ -25,7 +25,7 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, {server, name}){
-        console.log("Command : wowprofile, author : " + msg.author.lastMessage.member.nickname + ", arguments : " + server + ", " + name);
+        console.log("Command : wowprofile, author : " + msg.author.username + ", arguments : " + server + ", " + name);
         wowFct.profile(server, name, msg);
 	}
 }

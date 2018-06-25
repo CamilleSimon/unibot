@@ -25,7 +25,7 @@ module.exports = {
 		if(channel){
 			const embed = {
 				"description": "**Erreur !**\n" + msg,
-				"color": 0xff0000,
+				"color": 0xd8241d,
 				"timestamp": new Date(),
 				"thumbnail": {
 					"url": "attachment://confuse.png"
@@ -39,7 +39,7 @@ module.exports = {
 		if(channel){
 			const embed = {
 				"description": "**Succès !**\n" + msg,
-				"color": 0x00ff00,
+				"color": 0x82c128,
 				"timestamp": new Date(),
 				"thumbnail": {
 					"url": "attachment://happy.png"
@@ -53,7 +53,7 @@ module.exports = {
 		if(channel){
 			const embed = {
 				"description": "**Euh ?!**\n" + msg,
-				"color": 0x00ff00,
+				"color": 0x0092dd,
 				"timestamp": new Date(),
 				"thumbnail": {
 					"url": "attachment://confuse.png"

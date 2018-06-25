@@ -56,7 +56,7 @@ module.exports = class SayCommand extends Command {
             group: 'wow',
             memberName: 'useradd',
             description: 'Add a player in the database \n Ajoute un joueur à la base de données',
-            examples: ['playeradd @user wow uldaman Shaykan', 'playeradd @user ffxiv shiva Nyu Mori'],
+            examples: ['useradd @user wow uldaman Shaykan', 'useradd @user ffxiv shiva Nyu Mori'],
             args: [
                 {
                     key: 'discorduser',
@@ -95,18 +95,10 @@ module.exports = class SayCommand extends Command {
                         if(!name)
                             return false;//' argument invalide. Quelle est le nom de votre personnage ?';
                         else {
-                            var r = {origin: 'eu', locale : 'fr_FR', realm: '', name:'', fields: ['talents', 'items']};
-                            r['realm'] = s;
-                            r['name'] = name;
-                            bnet.wow.character.aggregate(r, function(error, response, body) {
-                                if(response.status!="undefined" && response.status!="nok"){
-                                    wowFct.profile(s,name,client.channels.find('id','439475359344492555'),"send");
-                                    return true;
-                                }
-                                return false;
-                            });
+                            wowFct.profile(s, name, client.channels.find('id','443679878685130762'), "send");
                             return true;
                         }
+                        return false;
                     }
                 },{
                     key: 'isItYours',
@@ -125,14 +117,28 @@ module.exports = class SayCommand extends Command {
     }
 
 	run(msg, {discorduser, game, server, name, isItYours}){
-        if(isItYours=="non")
-            discordFct.interrogationMsg("Le personnage " + name + " n\'a pas été attaché à l'utilisateur " + discorduser, msg);
+        console.log("Command : useradd, author : " + msg.author.username + ", arguments : " + discorduser + ", " + game + ", " + server + ", " + name + ", " + isItYours);
+
+        if(isItYours == "non")
+            discordFct.interrogationMsg("Le personnage " + name + " n\'a pas été attaché à l'utilisateur " + discorduser + " car le personnage est invalide.", msg);
         else{
-            game = game.toLowerCase();
-            server = server.toLowerCase();
-            name = name.toLowerCase();
-            console.log("Command : useradd, author : " + msg.author.username + ", arguments : " + discorduser + ", " + game + ", " + server + ", " + name);
-            add(discorduser, game, server, name, msg);
+            var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
+            r['realm'] = server;
+            r['locale'] = 'fr_FR';
+            r['name'] = name;
+
+            bnet.wow.character.aggregate(r, function(error, response, body) {
+                if(error) throw error;
+                if(response.status!="undefined" && response.status!="nok"){
+                    game = game.toLowerCase();
+                    server = server.toLowerCase();
+                    name = name.toLowerCase();
+                    add(discorduser, game, server, name, msg);
+                }
+                else {
+                    discordFct.interrogationMsg("Le personnage " + name + " n\'a pas été attaché à l'utilisateur " + discorduser, msg);
+                }
+            });
         }
 	}
 }

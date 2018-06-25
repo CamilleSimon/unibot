@@ -100,7 +100,6 @@ module.exports = class SayCommand extends Command {
                             r['name'] = name;
                             bnet.wow.character.aggregate(r, function(error, response, body) {
                                 if(response.status!="undefined" && response.status!="nok"){
-                                    console.log(client.channels);
                                     wowFct.profile(s,name,client.channels.find('id','439475359344492555'),"send");
                                     return true;
                                 }

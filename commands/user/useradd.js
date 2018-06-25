@@ -95,7 +95,7 @@ module.exports = class SayCommand extends Command {
                         if(!name)
                             return false;//' argument invalide. Quelle est le nom de votre personnage ?';
                         else {
-                            wowFct.profile(s, name, client.channels.find('id','443679878685130762'), "send");
+                            wowFct.profile(s, name, client.channels.find('id','439475359344492555'),"send");
                             return true;
                         }
                         return false;

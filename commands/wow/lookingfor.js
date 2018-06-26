@@ -37,10 +37,11 @@ function lookingfor(type, filter, channel){
                     }
                 }
             }
+            discordFct.successMsg("Toute la base des joueurs a été parcourue !", channel);
             db.close();
         });
     });
-    discordFct.successMsg("Toute la base des joueurs a été parcourue !\n", channel);
+    
 }
 
 //Analyze chat message part

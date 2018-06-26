@@ -24,7 +24,6 @@ var s;
 var c;
 
 function add(discorduser, game, server, name, channel){
-    //var id = user.id;
     //query init
     var query = {};
     //the query has to find an discord-user
@@ -120,7 +119,7 @@ module.exports = class SayCommand extends Command {
         console.log("Command : useradd, author : " + msg.author.username + ", arguments : " + discorduser + ", " + game + ", " + server + ", " + name + ", " + isItYours);
 
         if(isItYours == "non")
-            discordFct.interrogationMsg("Le personnage " + name + " n\'a pas été attaché à l'utilisateur " + discorduser + " car le personnage est invalide.", msg);
+            discordFct.interrogationMsg("Le personnage " + name + " n\'a pas été attaché à l'utilisateur " + discorduser, msg);
         else{
             var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
             r['realm'] = server;
@@ -136,7 +135,7 @@ module.exports = class SayCommand extends Command {
                     add(discorduser, game, server, name, msg);
                 }
                 else {
-                    discordFct.interrogationMsg("Le personnage " + name + " n\'a pas été attaché à l'utilisateur " + discorduser, msg);
+                    discordFct.interrogationMsg("Le personnage " + name + " n\'a pas été attaché à l'utilisateur " + discorduser + " car le personnage est invalide.", msg);
                 }
             });
         }

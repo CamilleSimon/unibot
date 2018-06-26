@@ -71,5 +71,65 @@ module.exports = {
                 discordFct.errorMsg("Le personnage n'a pas été trouver !\nVérifiez que vous avez bien utilisé les bons paramètres\n!profile <serveur> <nom>", channel, send);
             }
         });
+    },
+
+    filter : function(type, filter, server, name, channel, send){
+        var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
+        r['realm'] = server;
+        r['locale'] = 'fr_FR';
+        r['name'] = name;
+        bnet.wow.character.aggregate(r, function(error, response, body) {
+            if(error) throw error;
+            if(response.status!="undefined" && response.status!="nok"){
+                character = response;
+                if((type == "role" && character.talents[0].spec.role.toLowerCase() == filter) || (type == "class" && classTab[character.class].toLowerCase() == filter)){
+                    var spe;
+                    var icon;
+                    switch(character.talents[0].spec.role) {
+                        case "HEALING" : 
+                            spe = "<:HEALING:445549335132766208>"
+                            break;
+                        case "DPS" :
+                            spe ="<:DPS:445554272877412352>"
+                            break;
+                        default :
+                            spe = "<:TANKING:445554088852193280>"
+                    }
+                    switch(character.faction){
+                        case 0 :
+                            icon = "https://worldofwarcraft.akamaized.net/static/components/Logo/Logo-alliance.png"
+                            break;
+                        case 1 : 
+                            icon = "https://worldofwarcraft.akamaized.net/static/components/Logo/Logo-horde.png"
+                            break;
+                        default :
+                            icon = ""
+                    }
+                    const embed = {
+                        "description": "**Serveur** : " + character.realm + 
+                        "\n**Niveau** : " + character.level + 
+                        "\n**Classe** : " + classTab[character.class] + 
+                        "\n**Niveau d'objects moyen **: " + character.items.averageItemLevel +
+                        "\n**Spécialité : **" + character.talents[0].spec.name + " " + spe,
+                        "color": colorTab[character.class],
+                        "timestamp": new Date(),
+                        "thumbnail": {
+                            "url": "https://render-eu.worldofwarcraft.com/character/" + character.thumbnail
+                        },
+                        "author": {
+                            "name": character.name,
+                            "url": "https://worldofwarcraft.com/fr-fr/character/"  + character.realm  +"/" + character.name,
+                            "icon_url": icon
+                        }
+                    }; 
+                    if(send == "send")
+                        channel.send({embed});
+                    else
+                        channel.say({ embed });
+                }
+            } else {
+                discordFct.errorMsg("Le personnage n'a pas été trouver !\nVérifiez que vous avez bien utilisé les bons paramètres\n!profile <serveur> <nom>", channel, send);
+            }
+        });
     }
 }

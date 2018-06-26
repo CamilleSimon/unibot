@@ -128,6 +128,7 @@ module.exports = {
                         channel.say({ embed });
                 }
             } else {
+                console.log(type + ","+ filter + "," + server + " " + name);
                 discordFct.errorMsg("Le personnage n'a pas été trouver !\nVérifiez que vous avez bien utilisé les bons paramètres\n!profile <serveur> <nom>", channel, send);
             }
         });

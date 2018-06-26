@@ -82,7 +82,7 @@ module.exports = {
             if(error) throw error;
             if(response.status!="undefined" && response.status!="nok"){
                 character = response;
-                if((type == "role" && character.talents[0].spec.role.toLowerCase() == filter) || (type == "class" && classTab[character.class].toLowerCase() == filter) && ilvl < character.items.averageItemLevel){
+                if(((type == "role" && character.talents[0].spec.role.toLowerCase() == filter) || (type == "class" && classTab[character.class].toLowerCase() == filter)) && ilvl <= character.items.averageItemLevel){
                     var spe;
                     var icon;
                     switch(character.talents[0].spec.role) {

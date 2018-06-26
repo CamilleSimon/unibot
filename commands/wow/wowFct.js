@@ -73,7 +73,7 @@ module.exports = {
         });
     },
 
-    filter : function(type, filter, server, name, channel, send){
+    filter : function(type, filter, ilvl, server, name, channel, send){
         var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
         r['realm'] = server;
         r['locale'] = 'fr_FR';
@@ -82,7 +82,7 @@ module.exports = {
             if(error) throw error;
             if(response.status!="undefined" && response.status!="nok"){
                 character = response;
-                if((type == "role" && character.talents[0].spec.role.toLowerCase() == filter) || (type == "class" && classTab[character.class].toLowerCase() == filter)){
+                if((type == "role" && character.talents[0].spec.role.toLowerCase() == filter) || (type == "class" && classTab[character.class].toLowerCase() == filter) || (ilvl < character.items.averageItemLevel)){
                     var spe;
                     var icon;
                     switch(character.talents[0].spec.role) {

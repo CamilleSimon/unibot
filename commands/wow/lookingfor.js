@@ -14,7 +14,7 @@ var bnet = require('battlenet-api')(wowapi);
 
 var t;
 
-function lookingfor(type, filter, channel){
+function lookingfor(type, filter, ilvl, channel){
     var query = {};
     type = type.toLowerCase();
     filter = filter.toLowerCase();
@@ -32,7 +32,7 @@ function lookingfor(type, filter, channel){
                         if(character.game == "wow"){
                             if(type == "role" && filter == "heal")
                                 filter = "healing";
-                            wowFct.filter(type, filter, character.server, character.name, channel);
+                            wowFct.filter(type, filter, ilvl, character.server, character.name, channel);
                         }
                     }
                 }
@@ -80,13 +80,18 @@ module.exports = class SayCommand extends Command {
                         }
                         return ' argument invalide. Donner le nom du rôle ou de la classe. `tank`, `heal`, `dps`, `guerrier`, `paladin`, `chasseur`, `voleur`, `prêtre`, `chevalier de la mort`, `chaman`, `mage`, `démoniste`, `moine`, `druide` ou `chasseur de démons`';
                     }
+                },{
+                    key: 'ilvl',
+                    prompt: '',
+                    type: 'integer',
+                    default : 0
                 }
             ]
         });
     }
 
-	run(msg, {type, filter}){
+	run(msg, {type, filter, ilvl}){
         console.log("Command : userprofile, author : " + msg.author.username + ", arguments : " + type + ", " + filter);
-        lookingfor(type, filter, msg);
+        lookingfor(type, filter, ilvl, msg);
 	}
 }

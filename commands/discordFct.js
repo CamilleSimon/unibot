@@ -22,6 +22,7 @@ module.exports = {
 	},
 
 	properName : function(discordId, channel){
+		console.log("Hello");
 		return channel.guild.members.find('id', discordId).nickname == null ? channel.client.users.find('id', discordId).username : channel.guild.members.find('id', discordId).nickname;
 	},
 

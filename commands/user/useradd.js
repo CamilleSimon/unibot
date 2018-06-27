@@ -1,7 +1,6 @@
 const { Command } = require('discord.js-commando');
 const fs = require("fs");
 const discordFct = require('../discordFct');
-const wowFct = require('../wow/wowFct');
 
 var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
@@ -11,13 +10,6 @@ var bnet = require('battlenet-api')(wowapi);
 
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
-
-var content = fs.readFileSync("commands/wow/color.json");
-var colorTab = JSON.parse(content);
-content = fs.readFileSync("commands/wow/race.json");
-var raceTab = JSON.parse(content);
-content = fs.readFileSync("commands/wow/class.json");
-var classTab = JSON.parse(content);
 
 var g;
 var s;
@@ -36,14 +28,22 @@ function add(discorduser, game, server, name, channel){
     };
     //connection to the DB
     MongoClient.connect(url, function(err,db){
-        if (err) throw err;
-        //add to the end the array 'characters' the element 'character'
-        var newValue = { $addToSet: {"characters": character}};//$set: { "user": user }};
-        db.collection("players").updateOne(query, newValue, {upsert: true}, function(err,doc) {
-            if (err) throw err;
-            discordFct.successMsg("Le personnage " + name + " a bien été ajouté à l'utilisateur " + discorduser + " !", channel);
-            db.close();
-        });
+        if (err){
+            discordFct.errorMsg("Une erreur est survenue, veuillez contacter mon propriétaire !\nConnexion à MongoDB impossible.", channel, send);
+            throw err;
+        } else {
+            //add to the end the array 'characters' the element 'character'
+            var newValue = { $addToSet: {"characters": character}};//$set: { "user": user }};
+            db.collection("players").updateOne(query, newValue, {upsert: true}, function(err,doc) {
+                if (err){
+                    discordFct.errorMsg("Une erreur est survenue, veuillez contacter mon propriétaire !\nConnexion à la table `players` impossible.", channel, send);
+                    throw err;
+                }else{
+                    discordFct.successMsg("Le personnage " + name + " a bien été ajouté à l'utilisateur " + discordFct.properName(discordId, channel) + " !", channel);
+                    db.close();
+                }
+            });
+        }
     });
 }
 

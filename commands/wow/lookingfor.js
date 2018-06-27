@@ -9,37 +9,37 @@ var jsonConfig = JSON.parse(configs);
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
-var wowapi = jsonConfig.wowapi;
-var bnet = require('battlenet-api')(wowapi);
-
 var t;
 
 function lookingfor(type, filter, ilvl, channel){
-    var query = {};
     type = type.toLowerCase();
     filter = filter.toLowerCase();
     MongoClient.connect(url, function(err,db){
-        if (err) throw err;
-        db.collection("players").find({}).toArray(function(err,result) {
-            if (err) throw err;
-            if(!result || result == null){ 
-                discordFct.errorMsg("Aucun résultat pour cette recherche !", channel);
-            } else {
-                for(var i = 0; i < result.length; i++){
-                    var characters = result[i]["characters"];
-                    for(var j = 0; j < characters.length; j++){
-                        var character = characters[j];
-                        if(character.game == "wow"){
-                            if(type == "role" && filter == "heal")
-                                filter = "healing";
-                            wowFct.filter(type, filter, ilvl, character.server, character.name, result[i]["discordId"], channel);
+        if (err){
+            discordFct.errorMsg("Une erreur est survenue, veuillez contacter mon propriétaire !", channel, send);
+            throw err
+        }else{
+            db.collection("players").find({}).toArray(function(err,result) {
+                if (err) throw err;
+                if(!result || result == null){ 
+                    discordFct.errorMsg("Aucun résultat pour cette recherche !", channel);
+                } else {
+                    for(var i = 0; i < result.length; i++){
+                        var characters = result[i]["characters"];
+                        for(var j = 0; j < characters.length; j++){
+                            var character = characters[j];
+                            if(character.game == "wow"){
+                                if(type == "role" && filter == "heal")
+                                    filter = "healing";
+                                wowFct.filter(type, filter, ilvl, character.server, character.name, result[i]["discordId"], channel);
+                            }
                         }
                     }
                 }
-            }
-            discordFct.successMsg("Toute la base des joueurs a été parcourue !", channel);
-            db.close();
-        });
+                discordFct.successMsg("Toute la base des joueurs a été parcourue !", channel);
+                db.close();
+            });
+        }
     });
     
 }

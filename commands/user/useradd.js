@@ -39,7 +39,8 @@ function add(discorduser, game, server, name, channel){
                     discordFct.errorMsg("Une erreur est survenue, veuillez contacter mon propriétaire !\nConnexion à la table `players` impossible.", channel, send);
                     throw err;
                 }else{
-                    discordFct.successMsg("Le personnage " + name + " a bien été ajouté à l'utilisateur " + discordFct.properName(discordId, channel) + " !", channel);
+                    discordFct.successMsg("Le personnage " + name + " a bien été ajouté à l'utilisateur " + channel.guild.members.find('id', discordId).nickname == null ? channel.client.users.find('id', discordId).username : channel.guild.members.find('id', discordId).nickname
+                    + " !", channel);
                     db.close();
                 }
             });

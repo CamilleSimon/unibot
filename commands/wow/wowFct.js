@@ -74,6 +74,7 @@ module.exports = {
     },
 
     filter : function(type, filter, ilvl, server, name, discordId, channel, send){
+        var pseudo;
         var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
         r['realm'] = server;
         r['locale'] = 'fr_FR';
@@ -82,6 +83,7 @@ module.exports = {
             if(error) throw error;
             if(response.status!="undefined" && response.status!="nok"){
                 character = response;
+                if(channel.guild.members.find('id', discordId).nickname == null ? pseudo = channel.client.users.find('id', discordId).username : pseudo = channel.guild.members.find('id', discordId).nickname);
                 if(((type == "role" && character.talents[0].spec.role.toLowerCase() == filter) || (type == "class" && classTab[character.class].toLowerCase() == filter)) && ilvl <= character.items.averageItemLevel){
                     var spe;
                     var icon;
@@ -111,7 +113,7 @@ module.exports = {
                         "\n**Classe** : " + classTab[character.class] + 
                         "\n**Niveau d'objects moyen **: " + character.items.averageItemLevel +
                         "\n**Spécialité : **" + character.talents[0].spec.name + " " + spe +
-                        "\n**Pseudo discord** : "  + channel.guild.members.find('id', discordId).nickname,
+                        "\n**Pseudo discord** : "  + pseudo,
                         "color": colorTab[character.class],
                         "timestamp": new Date(),
                         "thumbnail": {

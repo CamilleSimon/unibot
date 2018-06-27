@@ -32,7 +32,7 @@ function lookingfor(type, filter, ilvl, channel){
                         if(character.game == "wow"){
                             if(type == "role" && filter == "heal")
                                 filter = "healing";
-                            wowFct.filter(type, filter, ilvl, character.server, character.name, channel);
+                            wowFct.filter(type, filter, ilvl, character.server, character.name, result[i]["discordId"], channel);
                         }
                     }
                 }

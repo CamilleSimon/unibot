@@ -73,7 +73,7 @@ module.exports = {
         });
     },
 
-    filter : function(type, filter, ilvl, server, name, channel, send){
+    filter : function(type, filter, ilvl, server, name, discordId, channel, send){
         var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
         r['realm'] = server;
         r['locale'] = 'fr_FR';
@@ -110,7 +110,8 @@ module.exports = {
                         "\n**Niveau** : " + character.level + 
                         "\n**Classe** : " + classTab[character.class] + 
                         "\n**Niveau d'objects moyen **: " + character.items.averageItemLevel +
-                        "\n**Spécialité : **" + character.talents[0].spec.name + " " + spe,
+                        "\n**Spécialité : **" + character.talents[0].spec.name + " " + spe +
+                        "\n**Pseudo discord** : "  + channel.guild.members.find('id', discordId).nickname,
                         "color": colorTab[character.class],
                         "timestamp": new Date(),
                         "thumbnail": {

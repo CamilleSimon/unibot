@@ -111,7 +111,7 @@ module.exports = {
                         "\n**Classe** : " + classTab[character.class] + 
                         "\n**Niveau d'objects moyen **: " + character.items.averageItemLevel +
                         "\n**Spécialité : **" + character.talents[0].spec.name + " " + spe +
-                        "\n**Pseudo discord** : " + channel.guild.members.find('id', discordId).nickname == null ? channel.client.users.find('id', discordId).username : channel.guild.members.find('id', discordId).nickname,
+                        "\n**Pseudo discord** : " + (channel.guild.members.find('id', discordId).nickname == null ? channel.client.users.find('id', discordId).username : channel.guild.members.find('id', discordId).nickname),
                         "color": colorTab[character.class],
                         "timestamp": new Date(),
                         "thumbnail": {

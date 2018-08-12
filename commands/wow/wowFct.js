@@ -4,7 +4,7 @@ const discordFct = require('../discordFct');
 var configs = fs.readFileSync("config.json");
 var jsonConfig = JSON.parse(configs);
 var wowapi = jsonConfig.wowapi;
-var bnet = require('battlenet-api')(wowapi);
+var bnet = require('blizzard.js').initialize({apikey: wowapi});
 
 var content = fs.readFileSync("commands/wow/color.json");
 var colorTab = JSON.parse(content);
@@ -16,14 +16,14 @@ var classTab = JSON.parse(content);
 module.exports = {
 
     profile : function(server, name, channel, send){
-        var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
-        r['realm'] = server;
-        r['locale'] = 'fr_FR';
-        r['name'] = name;
-        bnet.wow.character.aggregate(r, function(error, response, body) {
-            if(error) throw error;
-            if(response.status!="undefined" && response.status!="nok"){
-                character = response;
+        var fields = ['talents', 'items'];
+        var request = {origin: 'eu', locale : '', realm: '', name:''};
+        request['realm'] = server;
+        request['locale'] = 'fr_FR';
+        request['name'] = name;
+        bnet.wow.character(fields, request).then(response => {
+            if(response.statusText!="undefined" && response.statusText!="nok"){
+                character = response.data;
                 var spe;
                 var icon;
                 switch(character.talents[0].spec.role) {
@@ -73,16 +73,16 @@ module.exports = {
         });
     },
 
-    filter : function(type, filter, ilvl, server, name, discordId, channel, send){
-        var r = {origin: 'eu', locale : '', realm: '', name:'', fields: ['talents', 'items']};
-        r['realm'] = server;
-        r['locale'] = 'fr_FR';
-        r['name'] = name;
-        bnet.wow.character.aggregate(r, function(error, response, body) {
-            if(error) throw error;
-            if(response.status!="undefined" && response.status!="nok"){
-                character = response;
-                if(((type == "role" && character.talents[0].spec.role.toLowerCase() == filter) || (type == "class" && classTab[character.class].toLowerCase() == filter)) && ilvl <= character.items.averageItemLevel){
+    filter : function(type, filter, server, name, discordId, channel, send){
+        var fields = ['talents', 'items'];
+        var request = {origin: 'eu', locale : '', realm: '', name:''};
+        request['realm'] = server;
+        request['locale'] = 'fr_FR';
+        request['name'] = name;
+        bnet.wow.character(fields, request).then(response => {
+            if(response.statusText!="undefined" && response.statusText!="nok"){
+                character = response.data;
+                if((type == "role" && character.talents[0].spec.role.toLowerCase() == filter) || (type == "class" && classTab[character.class].toLowerCase() == filter)){
                     var spe;
                     var icon;
                     switch(character.talents[0].spec.role) {
@@ -110,8 +110,8 @@ module.exports = {
                         "\n**Niveau** : " + character.level + 
                         "\n**Classe** : " + classTab[character.class] + 
                         "\n**Niveau d'objects moyen **: " + character.items.averageItemLevel +
-                        "\n**Spécialité : **" + character.talents[0].spec.name + " " + spe +
-                        "\n**Pseudo discord** : " + (channel.guild.members.find('id', discordId).nickname == null ? channel.client.users.find('id', discordId).username : channel.guild.members.find('id', discordId).nickname),
+                        "\n**Spécialité** : " + character.talents[0].spec.name + " " + spe +
+                        "\n**Pseudo discord** : "  + channel.guild.members.find('id', discordId).nickname,
                         "color": colorTab[character.class],
                         "timestamp": new Date(),
                         "thumbnail": {
@@ -133,4 +133,5 @@ module.exports = {
             }
         });
     }
+        
 }

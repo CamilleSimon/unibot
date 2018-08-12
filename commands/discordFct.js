@@ -20,7 +20,7 @@ module.exports = {
 		}
 		return false
 	},
-	
+
 	errorMsg : function(msg, channel, send){
 		if(channel){
 			const embed = {
@@ -52,7 +52,7 @@ module.exports = {
 		}
 	},
 
-	interrogationMsg : function(msg, channel, send){
+	interrogationMsg : function(msg, channel){
 		if(channel){
 			const embed = {
 				"description": "**Euh ?!**\n" + msg,
@@ -62,10 +62,7 @@ module.exports = {
 					"url": "attachment://confuse.png"
 				}
 			};
-			if(send == "send")
-				channel.send({ embed, files: [{ attachment: 'confuse.png', name: 'confuse.png' }] });
-			else
-				channel.say({ embed, files: [{ attachment: 'confuse.png', name: 'confuse.png' }] });
+			channel.say({ embed, files: [{ attachment: 'confuse.png', name: 'confuse.png' }] });
 		}
 	}
 };

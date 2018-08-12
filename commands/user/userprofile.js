@@ -9,35 +9,32 @@ var jsonConfig = JSON.parse(configs);
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
+var wowapi = jsonConfig.wowapi;
+var bnet = require('blizzard.js').initialize({apikey: wowapi});
+
 function userprofile(discorduser, channel){
     var query = {};
+    var msg = "";
 
     MongoClient.connect(url, function(err,db){
-        if (err){
-            discordFct.errorMsg("Une erreur est survenue, veuillez contacter mon propriétaire !\nConnexion à MongoDB impossible.", channel, send);
-            throw err
-        }else{
-            query["discordId"] = discordFct.snowflakeToID(discorduser);
-            db.collection("players").findOne(query, function(err,result) {
-                if (err){
-                    discordFct.errorMsg("Une erreur est survenue, veuillez contacter mon propriétaire !\nConnexion à la table `players` impossible.", channel, send);
-                    throw err
-                }else{
-                    if(!result || result == null){ 
-                        discordFct.errorMsg("Cet utilisateur n'a pas été trouver !\nVous devez au moins avoir un personnage enregistré pour pouvoir utiliser cette commande.\n!userprofile <@user>\n!useradd <@user> <game> <server> <name>", channel);
-                    } else {
-                        var characters = result["characters"];
-                        for(var i = 0; i < characters.length; i++){
-                            if(characters[i].game == "wow"){  
-                                wowFct.profile(characters[i].server, characters[i].name, channel);
-                            }
-                        }
+        if (err) throw err;
+        query["discordId"] = discordFct.snowflakeToID(discorduser);
+        db.collection("players").findOne(query, function(err,result) {
+            if (err) throw err;
+            if(!result || result == null){ 
+                discordFct.errorMsg("Cet utilisateur n'a pas été trouver !\nVous devez au moins avoir un personnage enregistré pour pouvoir utiliser cette commande.\n!userprofile <@user>\n!useradd <@user> <game> <server> <name>", channel);
+            } else {
+                var characters = result["characters"];
+                for(var i = 0; i < characters.length; i++){
+                    if(characters[i].game == "wow"){  
+                        wowFct.profile(characters[i].server, characters[i].name, channel);
                     }
-                    db.close();
                 }
-            });
-        }
+            }
+            db.close();
+        });
     });
+    
 }
 
 //Analyze chat message part

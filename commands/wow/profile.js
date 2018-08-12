@@ -8,7 +8,7 @@ module.exports = class SayCommand extends Command {
             name: 'profile',
             group: 'wow',
             memberName: 'profile',
-            description: 'Affiche les informartions basiques sur un personnage',
+            description: 'Affiche les informations basiques sur un personnage',
             examples: ['!profile server name'],
             args: [
                 {

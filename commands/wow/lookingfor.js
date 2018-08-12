@@ -9,39 +9,37 @@ var jsonConfig = JSON.parse(configs);
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://' + jsonConfig.mongodb + ':27017/unibot';
 
+var wowapi = jsonConfig.wowapi;
+var bnet = require('blizzard.js').initialize({apikey: wowapi});
+
 var t;
 
-function lookingfor(type, filter, ilvl, channel){
+function lookingfor(type, filter, channel){
     type = type.toLowerCase();
     filter = filter.toLowerCase();
     MongoClient.connect(url, function(err,db){
-        if (err){
-            discordFct.errorMsg("Une erreur est survenue, veuillez contacter mon propriétaire !", channel, send);
-            throw err
-        }else{
-            db.collection("players").find({}).toArray(function(err,result) {
-                if (err) throw err;
-                if(!result || result == null){ 
-                    discordFct.errorMsg("Aucun résultat pour cette recherche !", channel);
-                } else {
-                    for(var i = 0; i < result.length; i++){
-                        var characters = result[i]["characters"];
-                        for(var j = 0; j < characters.length; j++){
-                            var character = characters[j];
-                            if(character.game == "wow"){
-                                if(type == "role" && filter == "heal")
-                                    filter = "healing";
-                                wowFct.filter(type, filter, ilvl, character.server, character.name, result[i]["discordId"], channel);
-                            }
+        if (err) throw err;
+        db.collection("players").find({}).toArray(function(err,result) {
+            if (err) throw err;
+            if(!result || result == null){ 
+                discordFct.errorMsg("Aucun résultat pour cette recherche !", channel);
+            } else {
+                for(var i = 0; i < result.length; i++){
+                    var characters = result[i]["characters"];
+                    for(var j = 0; j < characters.length; j++){
+                        var character = characters[j];
+                        if(character.game == "wow"){
+                            if(type == "role" && filter == "heal")
+                                filter = "healing";
+                            wowFct.filter(type, filter, character.server, character.name, result[i]["discordId"], channel);
                         }
                     }
                 }
-                discordFct.successMsg("Toute la base des joueurs a été parcourue !", channel);
-                db.close();
-            });
-        }
+            }
+            db.close();
+        });
     });
-    
+    //discordFct.successMsg("Toute la base des joueurs a été parcourue !\n", channel);
 }
 
 //Analyze chat message part
@@ -80,18 +78,13 @@ module.exports = class SayCommand extends Command {
                         }
                         return ' argument invalide. Donner le nom du rôle ou de la classe. `tank`, `heal`, `dps`, `guerrier`, `paladin`, `chasseur`, `voleur`, `prêtre`, `chevalier de la mort`, `chaman`, `mage`, `démoniste`, `moine`, `druide` ou `chasseur de démons`';
                     }
-                },{
-                    key: 'ilvl',
-                    prompt: '',
-                    type: 'integer',
-                    default : 0
                 }
             ]
         });
     }
 
-	run(msg, {type, filter, ilvl}){
+	run(msg, {type, filter}){
         console.log("Command : userprofile, author : " + msg.author.username + ", arguments : " + type + ", " + filter);
-        lookingfor(type, filter, ilvl, msg);
+        lookingfor(type, filter, msg);
 	}
 }
